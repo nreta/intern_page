@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Маркетинг — InternLab Academy</title>
+
+<style>
+:root {
+  --bg: #f5f6fa;
+  --panel: #ffffff;
+  --ink: #172033;
+  --muted: #778096;
+  --line: #e8ebf2;
+  --purple: #6657e8;
+  --soft: #efedff;
+  --green: #16865b;
+  --amber: #f3a536;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.65 system-ui, sans-serif;
+}
+
+button { font: inherit; cursor: pointer; border: 0; }
+
+.header {
+  background: #171a2b;
+  color: white;
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.brand {
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.brand span { color: #a99fff; }
+
+.back {
+  color: white;
+  text-decoration: none;
+  background: #2a2d45;
+  padding: 9px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 35px auto;
+  padding: 0 18px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #211d49, #6657e8);
+  color: white;
+  padding: 42px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #c5beff;
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 43px);
+  line-height: 1.15;
+  margin: 12px 0;
+}
+
+.hero p {
+  color: #e4e1ff;
+  max-width: 700px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.meta span {
+  background: #ffffff20;
+  border: 1px solid #ffffff30;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 18px;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 0 0 14px;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 18px 0 8px;
+}
+
+p { margin: 9px 0; }
+
+.muted { color: var(--muted); }
+
+.highlight {
+  background: #f5f3ff;
+  border-left: 4px solid var(--purple);
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.info-card {
+  background: #fafbfe;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 16px;
+}
+
+.info-card b {
+  display: block;
+  color: var(--purple);
+  margin-bottom: 5px;
+}
+
+.number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  border-radius: 8px;
+  background: var(--soft);
+  color: var(--purple);
+  font-weight: 800;
+  margin-right: 7px;
+}
+
+ul, ol { padding-left: 23px; }
+li { margin: 7px 0; }
+
+.example {
+  background: #f3fbf6;
+  border: 1px solid #ccebd9;
+  padding: 17px;
+  border-radius: 11px;
+  margin: 15px 0;
+}
+
+.warning {
+  background: #fff8eb;
+  border: 1px solid #f4dfb8;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+td, th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.question {
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.question h3 { margin-top: 0; }
+
+.option {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 10px;
+  margin: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.option:has(input:checked) {
+  background: var(--soft);
+  border-color: #a99fff;
+}
+
+.btn {
+  background: var(--purple);
+  color: white;
+  border-radius: 9px;
+  padding: 11px 17px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.btn.secondary {
+  background: var(--soft);
+  color: var(--purple);
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  display: none;
+}
+
+.result.success {
+  display: block;
+  background: #e6f6ee;
+  color: #16865b;
+}
+
+.result.fail {
+  display: block;
+  background: #fff3df;
+  color: #9b6819;
+}
+
+.source {
+  display: block;
+  color: var(--purple);
+  margin: 9px 0;
+  overflow-wrap: anywhere;
+}
+
+.footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media(max-width:650px) {
+  .hero { padding: 27px 21px; }
+  .panel { padding: 19px; }
+  .grid { grid-template-columns: 1fr; }
+  .header { padding: 14px; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="brand">intern<span>lab.</span></div>
+  <a class="back" href="../../index.html">← Вернуться в академию</a>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="eyebrow">INTERNLAB · УРОК 1</div>
+    <h1>Маркетинг</h1>
+    <p>
+      Разберёмся, как компании изучают рынок, понимают потребности
+      клиентов, создают востребованные продукты и превращают
+      интерес аудитории в долгосрочные отношения и прибыль.
+    </p>
+    <div class="meta">
+      <span>Основы маркетинга</span>
+      <span>Начальный уровень</span>
+      <span>Примерно 20–30 минут</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>1. Что такое маркетинг?</h2>
+
+    <p>
+      Маркетинг — это деятельность, которая помогает компании
+      выявлять потребности клиентов, создавать подходящие товары
+      и услуги, доносить их ценность до аудитории и получать
+      коммерческий результат.
+    </p>
+
+    <p>
+      Простыми словами, маркетинг помогает бизнесу понять:
+      что нужно людям, кому это предложить, какую ценность
+      создать, сколько должен стоить продукт и как рассказать
+      о нём потенциальным покупателям.
+    </p>
+
+    <div class="highlight">
+      <b>Главная мысль:</b>
+      маркетинг — это не только реклама и продажи.
+      Это целая система работы с рынком, продуктом и клиентами.
+    </div>
+
+    <h3>Простой пример</h3>
+
+    <p>
+      Представим, что компания хочет открыть кофейню.
+      Прежде чем тратить деньги на рекламу, ей нужно выяснить:
+    </p>
+
+    <ul>
+      <li>Есть ли поблизости люди, которым нужна кофейня?</li>
+      <li>Какие кофейни уже работают в этом районе?</li>
+      <li>Что клиенты ценят больше: цену, скорость или атмосферу?</li>
+      <li>Какие напитки и дополнительные продукты востребованы?</li>
+      <li>Сколько клиенты готовы платить?</li>
+      <li>Как рассказать людям о новой кофейне?</li>
+    </ul>
+
+    <p>
+      Ответы на эти вопросы помогают создать предложение,
+      которое действительно интересно покупателям.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>2. Зачем нужен маркетинг?</h2>
+
+    <p>
+      Маркетинг помогает компании не просто продать товар один раз,
+      а построить устойчивый бизнес и отношения с клиентами.
+    </p>
+
+    <div class="grid">
+      <div class="info-card">
+        <b>Привлечение клиентов</b>
+        Помогает находить людей, которым может быть полезен продукт.
+      </div>
+
+      <div class="info-card">
+        <b>Рост продаж</b>
+        Помогает формировать спрос и увеличивать количество покупок.
+      </div>
+
+      <div class="info-card">
+        <b>Узнаваемость бренда</b>
+        Делает компанию и её продукты более заметными на рынке.
+      </div>
+
+      <div class="info-card">
+        <b>Удержание клиентов</b>
+        Помогает поддерживать отношения и стимулировать повторные покупки.
+      </div>
+
+      <div class="info-card">
+        <b>Развитие продукта</b>
+        Помогает улучшать продукт на основе потребностей и обратной связи.
+      </div>
+
+      <div class="info-card">
+        <b>Конкурентное преимущество</b>
+        Помогает выделиться среди похожих предложений.
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>3. Основные функции маркетинга</h2>
+
+    <p>
+      В маркетинге можно выделить несколько взаимосвязанных функций.
+      Они помогают компании изучать рынок, создавать продукт,
+      продавать его и управлять результатами.
+    </p>
+
+    <h3><span class="number">1</span>Аналитическая функция</h3>
+    <p>
+      Изучение рынка, конкурентов, целевой аудитории и поведения
+      покупателей. Маркетолог собирает данные и ищет возможности
+      для развития бизнеса.
+    </p>
+    <p class="muted">
+      Пример: исследовать, почему клиенты выбирают конкурента,
+      а не нашу компанию.
+    </p>
+
+    <h3><span class="number">2</span>Производственная и продуктовая функция</h3>
+    <p>
+      Работа с продуктом: его характеристиками, качеством,
+      упаковкой и соответствием ожиданиям покупателей.
+    </p>
+    <p class="muted">
+      Пример: изменить ассортимент кофейни после анализа
+      предпочтений посетителей.
+    </p>
+
+    <h3><span class="number">3</span>Сбытовая функция</h3>
+    <p>
+      Работа с ценой, продажами, каналами распространения,
+      привлечением клиентов и стимулированием спроса.
+    </p>
+    <p class="muted">
+      Пример: запустить программу лояльности или предложить
+      специальный набор продуктов.
+    </p>
+
+    <h3><span class="number">4</span>Управленческая функция</h3>
+    <p>
+      Планирование маркетинговой деятельности, распределение
+      бюджета, постановка задач, контроль показателей
+      и корректировка стратегии.
+    </p>
+    <p class="muted">
+      Пример: определить рекламный бюджет, сроки кампании
+      и показатели, по которым будет оцениваться результат.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>4. Цели и задачи маркетинга</h2>
+
+    <p>
+      Цель маркетинга должна быть связана с потребностями клиентов
+      и бизнес-результатами компании.
+    </p>
+
+    <h3>Примеры целей</h3>
+    <ul>
+      <li>Увеличить выручку.</li>
+      <li>Привлечь новых клиентов.</li>
+      <li>Повысить узнаваемость бренда.</li>
+      <li>Вывести новый продукт на рынок.</li>
+      <li>Увеличить повторные покупки.</li>
+      <li>Повысить удовлетворённость клиентов.</li>
+      <li>Увеличить долю компании на рынке.</li>
+    </ul>
+
+    <h3>Какие задачи выполняет маркетолог?</h3>
+    <ol>
+      <li>Изучает рынок и конкурентов.</li>
+      <li>Исследует целевую аудиторию.</li>
+      <li>Определяет потребности и проблемы клиентов.</li>
+      <li>Помогает сформировать продукт и предложение.</li>
+      <li>Участвует в выборе цены и позиционирования.</li>
+      <li>Подбирает каналы продвижения.</li>
+      <li>Запускает и анализирует маркетинговые кампании.</li>
+      <li>Оценивает результаты и предлагает улучшения.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>5. Комплекс маркетинга — 4P</h2>
+
+    <p>
+      Модель 4P помогает системно рассмотреть предложение компании
+      с четырёх сторон.
+    </p>
+
+    <div class="grid">
+      <div class="info-card">
+        <b>Product — продукт</b>
+        Что именно компания предлагает клиенту? Какую проблему
+        решает продукт и чем он отличается от конкурентов?
+      </div>
+
+      <div class="info-card">
+        <b>Price — цена</b>
+        Сколько стоит продукт? Соответствует ли цена его ценности,
+        качеству и возможностям целевой аудитории?
+      </div>
+
+      <div class="info-card">
+        <b>Place — место и распространение</b>
+        Где и каким способом клиент может приобрести продукт?
+        Например, в магазине, на сайте или через приложение.
+      </div>
+
+      <div class="info-card">
+        <b>Promotion — продвижение</b>
+        Как компания рассказывает о продукте и привлекает внимание?
+        Например, через рекламу, контент и PR.
+      </div>
+    </div>
+
+    <div class="example">
+      <b>Пример 4P для кофейни:</b>
+      <ul>
+        <li><b>Product:</b> кофе, десерты и завтраки.</li>
+        <li><b>Price:</b> средний ценовой сегмент.</li>
+        <li><b>Place:</b> кофейня рядом с офисами и университетом.</li>
+        <li><b>Promotion:</b> социальные сети, акции и программа лояльности.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>6. Основные этапы маркетинговой работы</h2>
+
+    <p>
+      Маркетинг — это последовательный процесс.
+      После запуска кампании работа не заканчивается:
+      необходимо анализировать результаты и улучшать решения.
+    </p>
+
+    <ol>
+      <li>
+        <b>Анализ рынка.</b>
+        Изучить спрос, конкурентов, тенденции и возможности бизнеса.
+      </li>
+      <li>
+        <b>Изучение аудитории.</b>
+        Определить, кто покупает продукт, какие у людей потребности
+        и что влияет на их выбор.
+      </li>
+      <li>
+        <b>Постановка целей и стратегии.</b>
+        Решить, какого результата нужно достичь и каким способом.
+      </li>
+      <li>
+        <b>Выбор маркетинговых инструментов.</b>
+        Определить каналы коммуникации и продвижения.
+      </li>
+      <li>
+        <b>Реализация.</b>
+        Запустить выбранные мероприятия и рекламные кампании.
+      </li>
+      <li>
+        <b>Анализ результатов.</b>
+        Измерить показатели, сравнить их с целями и найти проблемы.
+      </li>
+      <li>
+        <b>Оптимизация.</b>
+        Изменить стратегию, бюджет или инструменты на основе данных.
+      </li>
+    </ol>
+
+    <div class="highlight">
+      <b>Важно:</b>
+      маркетинг — это не разовое действие.
+      Это постоянный цикл исследования, планирования,
+      реализации и улучшения.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>7. Основные виды маркетинга</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Вид</th>
+            <th>Что означает</th>
+            <th>Пример</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Интернет-маркетинг</b></td>
+            <td>Продвижение через цифровые каналы.</td>
+            <td>Сайт, SEO, email, реклама.</td>
+          </tr>
+          <tr>
+            <td><b>Контент-маркетинг</b></td>
+            <td>Привлечение аудитории полезным контентом.</td>
+            <td>Статьи, видео, инструкции.</td>
+          </tr>
+          <tr>
+            <td><b>Email-маркетинг</b></td>
+            <td>Коммуникация с аудиторией через электронную почту.</td>
+            <td>Рассылки и письма.</td>
+          </tr>
+          <tr>
+            <td><b>Социальный маркетинг</b></td>
+            <td>Использование социальных платформ для коммуникации с аудиторией.</td>
+            <td>Публикации и сообщества.</td>
+          </tr>
+          <tr>
+            <td><b>Ремаркетинг</b></td>
+            <td>Повторное обращение к людям, которые уже взаимодействовали с брендом.</td>
+            <td>Реклама посетителям сайта.</td>
+          </tr>
+          <tr>
+            <td><b>Бренд-маркетинг</b></td>
+            <td>Формирование образа и узнаваемости бренда.</td>
+            <td>Позиционирование и айдентика.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>8. Маркетинг и реклама — в чём разница?</h2>
+
+    <p>
+      Эти понятия связаны, но не являются одинаковыми.
+      Реклама — один из инструментов маркетинга.
+    </p>
+
+    <div class="grid">
+      <div class="info-card">
+        <b>Маркетинг</b>
+        Определяет, кому нужен продукт, какую ценность он предлагает,
+        сколько стоит, где продаётся и как развивается бизнес.
+      </div>
+
+      <div class="info-card">
+        <b>Реклама</b>
+        Помогает донести предложение до аудитории
+        и привлечь внимание потенциальных клиентов.
+      </div>
+    </div>
+
+    <div class="warning">
+      <b>Запомните:</b>
+      можно запустить много рекламы, но если продукт не нужен
+      аудитории или предложение не соответствует её ожиданиям,
+      реклама сама по себе не решит проблему.
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>9. Практический кейс</h2>
+
+    <p>
+      Представьте, что вы начинающий маркетолог в компании,
+      которая продаёт онлайн-курсы английского языка.
+      За последний месяц количество заявок снизилось.
+    </p>
+
+    <h3>Ваша задача — найти возможные причины.</h3>
+
+    <p>С чего стоит начать?</p>
+
+    <ol>
+      <li>Проверить, не изменился ли спрос на рынке.</li>
+      <li>Изучить конкурентов и их предложения.</li>
+      <li>Проверить, соответствует ли продукт потребностям аудитории.</li>
+      <li>Проанализировать рекламные каналы и стоимость заявок.</li>
+      <li>Проверить сайт и форму отправки заявки.</li>
+      <li>Сравнить результаты с предыдущими периодами.</li>
+      <li>Предложить гипотезы и проверить их.</li>
+    </ol>
+
+    <div class="example">
+      <b>Возможная гипотеза:</b>
+      реклама приводит посетителей, но на сайте недостаточно
+      понятно объяснены преимущества курса.
+      Можно протестировать новый заголовок, описание программы
+      и форму записи, а затем сравнить конверсию.
+    </div>
+
+    <p>
+      Хороший маркетолог не просто предполагает, что проблема
+      в рекламе. Он исследует весь путь клиента и опирается на данные.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>10. Что должен помнить начинающий маркетолог?</h2>
+
+    <ul>
+      <li>Начинай с потребностей клиента, а не с рекламного инструмента.</li>
+      <li>Изучай конкурентов и рынок.</li>
+      <li>Не путай охваты и клики с реальными продажами.</li>
+      <li>Определяй цель до запуска маркетинговой активности.</li>
+      <li>Используй аналитику для принятия решений.</li>
+      <li>Проверяй гипотезы, а не полагайся только на мнение.</li>
+      <li>Помни, что удержание клиента тоже важно.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>11. Источники для дополнительного изучения</h2>
+
+    <p class="muted">
+      Материалы, на основе которых подготовлен этот учебный урок.
+      Рекомендуем прочитать их для более глубокого понимания темы.
+    </p>
+
+    <a class="source"
+       href="https://skillbox.ru/media/marketing/prosto-o-slozhnom-chto-takoe-marketing-kakie-u-nego-zadachi-i-kak-uznat-o-nyem-bolshe/"
+       target="_blank" rel="noopener">
+       Skillbox — Что такое маркетинг: цели, задачи и инструменты ↗
+    </a>
+
+    <a class="source"
+       href="https://practicum.yandex.ru/blog/vsyo-o-marketinge-celi-zadachi-struktura/"
+       target="_blank" rel="noopener">
+       Яндекс Практикум — Что такое маркетинг: цели, стратегия и структура ↗
+    </a>
+
+    <a class="source"
+       href="https://www.unisender.com/ru/glossary/chto-takoe-marketing/#anchor-1"
+       target="_blank" rel="noopener">
+       Unisender — Маркетинг: функции, задачи и виды ↗
+    </a>
+  </section>
+
+  <section class="panel" id="test">
+    <h2>12. Проверка знаний</h2>
+
+    <p class="muted">
+      Ответьте на 5 вопросов. Для прохождения урока
+      необходимо правильно ответить минимум на 4 вопроса.
+    </p>
+
+    <form id="quizForm">
+
+      <div class="question">
+        <h3>1. Что такое маркетинг?</h3>
+        <label class="option">
+          <input type="radio" name="q0" value="0">
+          Только создание рекламы
+        </label>
+        <label class="option">
+          <input type="radio" name="q0" value="1">
+          Изучение потребностей, создание ценности и развитие отношений с клиентами
+        </label>
+        <label class="option">
+          <input type="radio" name="q0" value="2">
+          Только продажа товаров
+        </label>
+      </div>
+
+      <div class="question">
+        <h3>2. Какая функция маркетинга связана с исследованием рынка и конкурентов?</h3>
+        <label class="option">
+          <input type="radio" name="q1" value="0">
+          Аналитическая
+        </label>
+        <label class="option">
+          <input type="radio" name="q1" value="1">
+          Производственная
+        </label>
+        <label class="option">
+          <input type="radio" name="q1" value="2">
+          Сбытовая
+        </label>
+      </div>
+
+      <div class="question">
+        <h3>3. Что означает Product в модели 4P?</h3>
+        <label class="option">
+          <input type="radio" name="q2" value="0">
+          Цена
+        </label>
+        <label class="option">
+          <input type="radio" name="q2" value="1">
+          Продукт
+        </label>
+        <label class="option">
+          <input type="radio" name="q2" value="2">
+          Продвижение
+        </label>
+      </div>
+
+      <div class="question">
+        <h3>4. Что нужно сделать после запуска маркетинговой кампании?</h3>
+        <label class="option">
+          <input type="radio" name="q3" value="0">
+          Ничего не менять и не проверять результаты
+        </label>
+        <label class="option">
+          <input type="radio" name="q3" value="1">
+          Сразу увеличить бюджет
+        </label>
+        <label class="option">
+          <input type="radio" name="q3" value="2">
+          Проанализировать показатели и при необходимости оптимизировать кампанию
+        </label>
+      </div>
+
+      <div class="question">
+        <h3>5. Как реклама связана с маркетингом?</h3>
+        <label class="option">
+          <input type="radio" name="q4" value="0">
+          Реклама и маркетинг — одно и то же
+        </label>
+        <label class="option">
+          <input type="radio" name="q4" value="1">
+          Реклама — один из инструментов маркетинга
+        </label>
+        <label class="option">
+          <input type="radio" name="q4" value="2">
+          Реклама не имеет отношения к маркетингу
+        </label>
+      </div>
+
+      <button class="btn" type="submit">Проверить ответы</button>
+    </form>
+
+    <div id="quizResult" class="result"></div>
+  </section>
+
+  <section class="panel" id="completion" style="display:none">
+    <h2>Урок завершён!</h2>
+    <p>
+      Поздравляем! Вы успешно прошли урок «Маркетинг».
+      Следующий термин теперь доступен в академии.
+    </p>
+    <a class="back" href="index.html"
+       style="display:inline-block;background:#6657e8">
+       Вернуться к обучению →
+    </a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  INTERNLAB · АКАДЕМИЯ МАРКЕТИНГА
+</footer>
+
+<script>
+const STORAGE_KEY = "internlab_academy_data_v1";
+const PASS_SCORE = 4;
+const TERM_INDEX = 0;
+
+const correctAnswers = [1, 0, 1, 2, 1];
+
+function getSavedData() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveMarketingProgress() {
+  const saved = getSavedData();
+  const interns = Array.isArray(saved.interns) ? saved.interns : [];
+  const currentId = saved.currentInternId;
+
+  const current = interns.find(x => x.id === currentId);
+
+  if (!current) {
+    alert("Не найден текущий кандидат. Вернитесь в академию и войдите в обучение.");
+    return false;
+  }
+
+  if (!current.testPassed) {
+    alert("Сначала необходимо успешно пройти входной тест.");
+    return false;
+  }
+
+  if (!Array.isArray(current.trainingPassed)) {
+    current.trainingPassed = [];
+  }
+
+  if (!current.trainingPassed.includes(TERM_INDEX)) {
+    current.trainingPassed.push(TERM_INDEX);
+  }
+
+  current.trainingPassed.sort((a, b) => a - b);
+  current.progress = current.trainingPassed.length;
+
+  if (current.trainingPassed.length === 45) {
+    current.status = "Завершил";
+  } else {
+    current.status = "Обучается";
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    ...saved,
+    interns
+  }));
+
+  return true;
+}
+
+document.getElementById("quizForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const formData = new FormData(this);
+  let score = 0;
+  let unanswered = [];
+
+  for (let i = 0; i < correctAnswers.length; i++) {
+    const answer = formData.get("q" + i);
+
+    if (answer === null) {
+      unanswered.push(i + 1);
+    } else if (Number(answer) === correctAnswers[i]) {
+      score++;
+    }
+  }
+
+  const result = document.getElementById("quizResult");
+
+  if (unanswered.length > 0) {
+    result.className = "result fail";
+    result.textContent =
+      "Ответьте на все вопросы. Не заполнены вопросы: " +
+      unanswered.join(", ") + ".";
+    return;
+  }
+
+  if (score >= PASS_SCORE) {
+    if (!saveMarketingProgress()) return;
+
+    result.className = "result success";
+    result.innerHTML =
+      "<b>Отлично! Вы набрали " + score + " из 5.</b>" +
+      "<p>Урок «Маркетинг» успешно завершён. Следующий термин разблокирован.</p>";
+
+    document.getElementById("completion").style.display = "block";
+    document.getElementById("quizForm").style.display = "none";
+
+    window.scrollTo({
+      top: document.getElementById("completion").offsetTop - 20,
+      behavior: "smooth"
+    });
+
+  } else {
+    result.className = "result fail";
+    result.innerHTML =
+      "<b>Ваш результат: " + score + " из 5.</b>" +
+      "<p>Для прохождения необходимо минимум 4 правильных ответа. " +
+      "Повторите материал и попробуйте ещё раз.</p>";
+  }
+});
+
+// Check that the candidate can access this lesson.
+(function checkAccess() {
+  const saved = getSavedData();
+  const interns = Array.isArray(saved.interns) ? saved.interns : [];
+  const current = interns.find(x => x.id === saved.currentInternId);
+
+  if (!current || !current.testPassed) {
+    document.querySelector(".container").innerHTML = `
+      <section class="panel">
+        <h2>Доступ закрыт</h2>
+        <p>Чтобы открыть урок, сначала необходимо успешно пройти входной тест.</p>
+        <a class="back" href="index.html"
+           style="display:inline-block;background:#6657e8">
+           Вернуться в академию
+        </a>
+      </section>`;
+    return;
+  }
+
+  if ((current.trainingPassed || []).includes(TERM_INDEX)) {
+    document.getElementById("quizForm").style.display = "none";
+    document.getElementById("quizResult").className = "result success";
+    document.getElementById("quizResult").textContent =
+      "Этот урок уже пройден. Ваш прогресс сохранён.";
+    document.getElementById("completion").style.display = "block";
+  }
+})();
+</script>
+
+</body>
+</html>

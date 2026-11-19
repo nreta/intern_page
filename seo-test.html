@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InternLab — Тест по SEO</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f6fa;
+  color: #172033;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  background: #171a2b;
+  color: white;
+  padding: 22px;
+}
+
+header h2 {
+  max-width: 850px;
+  margin: auto;
+}
+
+main {
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 0 18px 50px;
+}
+
+.panel {
+  background: white;
+  border: 1px solid #e8ebf2;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.eyebrow {
+  color: #6657e8;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 27px;
+}
+
+.question {
+  padding: 17px 0;
+  border-bottom: 1px solid #e8ebf2;
+}
+
+.option {
+  display: block;
+  padding: 11px;
+  border: 1px solid #e8ebf2;
+  border-radius: 8px;
+  margin: 8px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.option:has(input:checked) {
+  background: #f3f1ff;
+  border-color: #6657e8;
+}
+
+button, .btn {
+  display: inline-block;
+  background: #6657e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 17px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.secondary {
+  background: #efedff;
+  color: #6657e8;
+}
+
+.progress {
+  height: 7px;
+  background: #eeeef5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #6657e8;
+}
+
+.feedback {
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.correct {
+  background: #eaf7f0;
+  color: #16865b;
+}
+
+.wrong {
+  background: #fff0f0;
+  color: #bd5555;
+}
+
+.result {
+  display: none;
+  background: #f5f3ff;
+  border: 1px solid #e5e1ff;
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+</style>
+</head>
+
+<body>
+
+
+
+<main>
+<section class="panel">
+
+  <div class="eyebrow">УРОК 3 · SEO</div>
+  <h1>Тест по поисковой оптимизации</h1>
+
+  <p>
+    Ответьте на все 5 вопросов. Для успешного прохождения
+    необходимо правильно ответить минимум на 4 вопроса (80%).
+  </p>
+
+  <div class="progress">
+    <span id="progressBar"></span>
+  </div>
+
+  <div id="testArea"></div>
+
+  <button id="submitButton" onclick="submitTest()">
+    Проверить ответы
+  </button>
+
+  <div id="result" class="result"></div>
+
+</section>
+</main>
+
+<script>
+const STORAGE_KEY = "internlab_academy_data_v1";
+const SEO_TERM_INDEX = 2;
+const PASS_SCORE = 4;
+
+const questions = [
+  {
+    question: "Что означает аббревиатура SEO?",
+    options: [
+      "Social Engine Optimization",
+      "Search Engine Optimization",
+      "Search Email Operations",
+      "Social Engagement Online"
+    ],
+    correct: 1,
+    explanation:
+      "SEO означает Search Engine Optimization — поисковая оптимизация."
+  },
+  {
+    question: "Какие три основных процесса описывают работу поисковой системы?",
+    options: [
+      "Создание, реклама и продажа",
+      "Сканирование, индексация и ранжирование",
+      "Дизайн, публикация и продвижение",
+      "Регистрация, авторизация и подписка"
+    ],
+    correct: 1,
+    explanation:
+      "Поисковая система сканирует страницы, индексирует информацию и ранжирует результаты."
+  },
+  {
+    question: "Что относится к внутренней SEO-оптимизации?",
+    options: [
+      "Получение упоминаний на других сайтах",
+      "Размещение рекламы у блогеров",
+      "Работа со структурой и содержанием страниц сайта",
+      "Покупка рекламных показов"
+    ],
+    correct: 2,
+    explanation:
+      "Внутренняя оптимизация включает работу с содержанием, структурой, заголовками и ключевыми словами."
+  },
+  {
+    question: "Для чего SEO-специалист собирает ключевые слова?",
+    options: [
+      "Чтобы определить запросы, по которым пользователи ищут информацию",
+      "Чтобы изменить цвет сайта",
+      "Чтобы увеличить количество подписчиков",
+      "Чтобы ускорить компьютер"
+    ],
+    correct: 0,
+    explanation:
+      "Ключевые слова помогают понять поисковые запросы пользователей и определить содержание страниц."
+  },
+  {
+    question: "Почему важно следить за техническим состоянием сайта?",
+    options: [
+      "Скорость, адаптивность и ошибки влияют на работу сайта и удобство пользователей",
+      "Чтобы увеличить рекламный бюджет",
+      "Чтобы поисковик не показывал конкурентов",
+      "Чтобы не создавать контент"
+    ],
+    correct: 0,
+    explanation:
+      "Сайт должен корректно работать, быстро загружаться и быть удобным на разных устройствах."
+  }
+];
+
+let answers = {};
+let submitted = false;
+
+function getData() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  } catch (error) {
+    return {};
+  }
+}
+
+function getCandidate(data) {
+  if (!data.currentInternId || !Array.isArray(data.interns)) {
+    return null;
+  }
+
+  return data.interns.find(
+    candidate => candidate.id === data.currentInternId
+  ) || null;
+}
+
+function renderTest() {
+  const data = getData();
+  const candidate = getCandidate(data);
+  const area = document.getElementById("testArea");
+  const button = document.getElementById("submitButton");
+
+  if (!candidate) {
+    area.innerHTML = `
+      <div class="feedback wrong">
+        Активный кандидат не найден.
+        Вернитесь в академию и откройте тест оттуда.
+      </div>
+    `;
+    button.style.display = "none";
+    return;
+  }
+
+  if (!candidate.testPassed) {
+    area.innerHTML = `
+      <div class="feedback wrong">
+        Сначала необходимо успешно пройти входной тест академии.
+      </div>
+    `;
+    button.style.display = "none";
+    return;
+  }
+
+  if (
+    Array.isArray(candidate.trainingPassed) &&
+    candidate.trainingPassed.includes(SEO_TERM_INDEX)
+  ) {
+    area.innerHTML = `
+      <div class="feedback correct">
+        Вы уже успешно прошли тест по SEO.
+      </div>
+      <a class="btn secondary" href="index.html">
+        Вернуться к обучению
+      </a>
+    `;
+    button.style.display = "none";
+    return;
+  }
+
+  area.innerHTML = questions.map((q, i) => `
+    <div class="question">
+      <h3>${i + 1}. ${q.question}</h3>
+
+      ${q.options.map((option, j) => `
+        <label class="option">
+          <input
+            type="radio"
+            name="question${i}"
+            value="${j}"
+            onchange="selectAnswer(${i},${j})">
+          ${option}
+        </label>
+      `).join("")}
+
+      <div id="feedback${i}"></div>
+    </div>
+  `).join("");
+
+  button.style.display = "inline-block";
+}
+
+function selectAnswer(questionIndex, answerIndex) {
+  if (submitted) return;
+
+  answers[questionIndex] = answerIndex;
+
+  const count = Object.keys(answers).length;
+
+  document.getElementById("progressBar").style.width =
+    (count / questions.length * 100) + "%";
+}
+
+function submitTest() {
+  if (submitted) return;
+
+  if (Object.keys(answers).length !== questions.length) {
+    alert("Пожалуйста, ответьте на все 5 вопросов.");
+    return;
+  }
+
+  submitted = true;
+
+  let score = 0;
+
+  questions.forEach((q, i) => {
+    const isCorrect = answers[i] === q.correct;
+
+    if (isCorrect) score++;
+
+    document.getElementById("feedback" + i).innerHTML = `
+      <div class="feedback ${isCorrect ? "correct" : "wrong"}">
+        <b>${isCorrect ? "Правильно!" : "Неправильно."}</b>
+        <p>Ваш ответ: ${q.options[answers[i]]}</p>
+        <p>Правильный ответ: ${q.options[q.correct]}</p>
+        <p>${q.explanation}</p>
+      </div>
+    `;
+
+    document.querySelectorAll(
+      'input[name="question' + i + '"]'
+    ).forEach(input => input.disabled = true);
+  });
+
+  const passed = score >= PASS_SCORE;
+  const result = document.getElementById("result");
+
+  result.style.display = "block";
+
+  if (passed) {
+    saveSuccessfulResult(score);
+
+    result.innerHTML = `
+      <h2>Поздравляем! Тест пройден!</h2>
+      <p>Ваш результат: <b>${score} из 5 (${score * 20}%)</b></p>
+      <p>
+        Урок SEO отмечен как завершённый.
+        Ваш прогресс обучения обновлён.
+      </p>
+      <div class="actions">
+        <a class="btn" href="index.html">
+          Вернуться к обучению
+        </a>
+      </div>
+    `;
+  } else {
+    result.innerHTML = `
+      <h2>Тест пока не пройден</h2>
+      <p>Ваш результат: <b>${score} из 5 (${score * 20}%)</b></p>
+      <p>
+        Нужно минимум 4 правильных ответа.
+        Повторите материал и попробуйте снова.
+      </p>
+      <div class="actions">
+        <button onclick="retryTest()">Попробовать снова</button>
+        <a class="btn secondary" href="seo.html">
+          Повторить урок
+        </a>
+      </div>
+    `;
+  }
+
+  document.getElementById("submitButton").style.display = "none";
+}
+
+function saveSuccessfulResult(score) {
+  const data = getData();
+  const candidate = getCandidate(data);
+
+  if (!candidate || !candidate.testPassed) {
+    alert("Не удалось сохранить результат. Проверьте профиль кандидата.");
+    return;
+  }
+
+  if (!Array.isArray(candidate.trainingPassed)) {
+    candidate.trainingPassed = [];
+  }
+
+  if (!candidate.trainingPassed.includes(SEO_TERM_INDEX)) {
+    candidate.trainingPassed.push(SEO_TERM_INDEX);
+  }
+
+  candidate.progress = candidate.trainingPassed.length;
+
+  if (candidate.trainingPassed.length >= 12) {
+    candidate.status = "Завершил";
+  } else {
+    candidate.status = "Обучается";
+  }
+
+  candidate.seoTest = {
+    score: score,
+    total: questions.length,
+    percent: score * 20,
+    passed: true,
+    completedAt: new Date().toLocaleString("ru-RU")
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function retryTest() {
+  answers = {};
+  submitted = false;
+
+  document.getElementById("result").style.display = "none";
+  document.getElementById("submitButton").style.display = "inline-block";
+
+  renderTest();
+}
+
+renderTest();
+</script>
+
+</body>
+</html>

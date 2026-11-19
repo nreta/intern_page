@@ -1,0 +1,2348 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>InternLab — Академия маркетинга</title>
+
+<style>
+:root {
+  --bg:#f5f6fa;
+  --panel:#fff;
+  --ink:#172033;
+  --muted:#778096;
+  --line:#e8ebf2;
+  --purple:#6657e8;
+  --soft:#efedff;
+  --green:#16865b;
+  --amber:#f3a536;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  font:15px/1.5 system-ui,sans-serif;
+  color:var(--ink);
+}
+
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer;border:0; }
+
+.app {
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar {
+  width:235px;
+  background:#171a2b;
+  color:white;
+  padding:24px 16px;
+  flex-shrink:0;
+}
+
+.brand {
+  font-size:22px;
+  font-weight:800;
+  padding:0 12px 25px;
+}
+
+.brand span { color:#a99fff; }
+
+.nav-label {
+  font-size:10px;
+  color:#777d96;
+  padding:0 12px 10px;
+}
+
+.nav button {
+  display:block;
+  width:100%;
+  text-align:left;
+  background:none;
+  color:#b7bbca;
+  padding:11px 12px;
+  border-radius:9px;
+  margin:3px 0;
+}
+
+.nav button.active,
+.nav button:hover {
+  background:#2a2d45;
+  color:white;
+}
+
+.main {
+  flex:1;
+  min-width:0;
+  padding:30px 36px;
+  max-width:1500px;
+  margin:auto;
+  width:100%;
+}
+
+.top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  gap:15px;
+}
+
+.eyebrow {
+  color:var(--purple);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+h1 { font-size:28px;margin:4px 0; }
+h2 { font-size:17px;margin:0; }
+
+.muted { color:var(--muted); }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.card,.panel {
+  background:white;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.stat strong {
+  display:block;
+  font-size:28px;
+  margin:8px 0;
+}
+
+.label,.tiny {
+  font-size:12px;
+  color:var(--muted);
+}
+
+.panel-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:17px;
+}
+
+.btn {
+  background:var(--purple);
+  color:white;
+  border-radius:9px;
+  padding:10px 14px;
+  font-weight:700;
+  font-size:13px;
+}
+
+.btn.secondary {
+  background:var(--soft);
+  color:var(--purple);
+}
+
+.btn.ghost {
+  background:#f1f2f6;
+  color:#545d72;
+}
+
+.btn:disabled {
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.field,
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background:#fafbfe;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:10px 12px;
+  width:100%;
+  min-width:0;
+  color:var(--ink);
+}
+
+.toolbar {
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.table-wrap { overflow:auto; }
+
+table {
+  width:100%;
+  border-collapse:collapse;
+  white-space:nowrap;
+}
+
+th {
+  text-align:left;
+  font-size:10px;
+  color:#9299aa;
+  padding:11px;
+  border-bottom:1px solid var(--line);
+}
+
+td {
+  padding:12px;
+  border-bottom:1px solid #f0f1f5;
+  font-size:13px;
+}
+
+.tag {
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#f0efff;
+  color:#6558d9;
+  font-size:10px;
+  font-weight:700;
+}
+
+.tag.green {
+  background:#e6f6ee;
+  color:#18875c;
+}
+
+.tag.orange {
+  background:#fff3df;
+  color:#b8791a;
+}
+
+.page { display:none; }
+.page.active { display:block; }
+
+.split {
+  display:grid;
+  grid-template-columns:1.5fr .8fr;
+  gap:16px;
+}
+
+.progress {
+  height:7px;
+  background:#eeeef5;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress span {
+  display:block;
+  height:100%;
+  background:var(--purple);
+  transition:width .2s;
+}
+
+.form-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.form-field {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.form-field.full { grid-column:1/-1; }
+
+.form-field label {
+  font-size:12px;
+  font-weight:700;
+  color:#555d72;
+}
+
+.form-field textarea {
+  min-height:95px;
+  resize:vertical;
+}
+
+.form-note,.notice {
+  background:#f8f7ff;
+  border:1px solid #e5e1ff;
+  padding:14px;
+  border-radius:10px;
+  font-size:12px;
+  margin-bottom:18px;
+}
+
+.question {
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.question h3 { font-size:14px; }
+
+.option {
+  display:block;
+  padding:9px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  margin:6px 0;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.option:has(input:checked) {
+  background:#f5f3ff;
+  border-color:#a99fff;
+}
+
+.term-list {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.term {
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  min-width:0;
+}
+
+.term.done {
+  background:#f3fbf6;
+  border-color:#bde8d3;
+}
+
+.term.locked { opacity:.6; }
+
+.term-actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.lesson-box {
+  padding:17px;
+  background:#f8f7ff;
+  border:1px solid #e5e1ff;
+  border-radius:12px;
+  margin-top:16px;
+}
+
+.cert {
+  text-align:center;
+  padding:30px;
+  border:2px solid #d9d3ff;
+  border-radius:15px;
+}
+
+.profile-modal {
+  position:fixed;
+  inset:0;
+  background:#11182799;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  z-index:10;
+}
+
+.profile-modal.open { display:flex; }
+
+.profile-content {
+  background:white;
+  border-radius:15px;
+  padding:23px;
+  max-width:1000px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.profile-section {
+  border-top:1px solid var(--line);
+  padding:12px 0;
+}
+
+.profile-section h3 {
+  font-size:12px;
+  color:var(--purple);
+  margin:0 0 6px;
+}
+
+.profile-section p {
+  white-space:pre-wrap;
+  font-size:13px;
+  margin:5px 0;
+}
+
+.answer-review {
+  padding:12px 0;
+  border-top:1px solid var(--line);
+  font-size:13px;
+}
+
+.answer-correct { color:var(--green); }
+.answer-wrong { color:#bd5555; }
+
+.toast {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#20243a;
+  color:white;
+  padding:13px 18px;
+  border-radius:10px;
+  display:none;
+  z-index:20;
+  max-width:90vw;
+}
+
+@media(max-width:850px) {
+  .sidebar { width:190px; }
+  .main { padding:22px 16px; }
+  .grid { grid-template-columns:1fr 1fr; }
+  .split { grid-template-columns:1fr; }
+}
+
+@media(max-width:620px) {
+  .app { display:block; }
+  .sidebar { width:100%;padding:12px; }
+  .brand { padding:0 8px 10px; }
+  .nav-label { display:none; }
+  .nav { display:flex;overflow:auto; }
+  .nav button { white-space:nowrap;width:auto; }
+  .main { padding:18px 12px; }
+  .form-grid,.term-list { grid-template-columns:1fr; }
+  .form-field.full { grid-column:auto; }
+  .top { align-items:flex-start; }
+  .toolbar { flex-direction:column; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar">
+
+  <div class="brand">Intern<span>Lab</span></div>
+
+  <div class="nav-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+
+  <nav class="nav">
+    <button class="active" data-page="dashboard">▦ Обзор</button>
+    <button data-page="interns">♙ Стажёры</button>
+    <button data-page="application">✎ Анкета стажёра</button>
+    <button data-page="assessment">☑ Тест кандидата</button>
+    <button data-page="training">▤ Обучение</button>
+    <button data-page="certificate">✧ Сертификаты</button>
+  </nav>
+
+</aside>
+
+<main class="main">
+
+<header class="top">
+  <div>
+    <div class="eyebrow">УПРАВЛЕНИЕ СТАЖЁРАМИ</div>
+    <h1 id="pageTitle">Обзор</h1>
+    <div class="muted" id="pageSub">
+      Общая информация об академии.
+    </div>
+  </div>
+
+  <div><b>Администратор</b></div>
+</header>
+
+
+<!-- DASHBOARD -->
+
+<section class="page active" id="dashboard">
+
+  <div class="grid">
+
+    <div class="card stat">
+      <div class="label">Всего кандидатов</div>
+      <strong id="statInterns">0</strong>
+      <div class="tiny">В базе академии</div>
+    </div>
+
+    <div class="card stat">
+      <div class="label">Ожидают тестирования</div>
+      <strong id="statNew">0</strong>
+      <div class="tiny">Новые кандидаты</div>
+    </div>
+
+    <div class="card stat">
+      <div class="label">Терминов обучения</div>
+      <strong id="statTerms">46</strong>
+      <div class="tiny">Маркетинговая программа</div>
+    </div>
+
+    <div class="card stat">
+      <div class="label">Сертификаты</div>
+      <strong id="statCert">0</strong>
+      <div class="tiny">Выдано</div>
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <h2>Последние кандидаты</h2>
+      <button class="btn secondary" onclick="showPage('interns')">
+        Все кандидаты
+      </button>
+    </div>
+
+    <div id="recent"></div>
+
+  </div>
+
+  <div class="panel">
+
+    <h2>Начать работу</h2>
+
+    <p class="muted">
+      Кандидат заполняет анкету. После отправки анкеты тест запускается автоматически.
+    </p>
+
+    <button class="btn" onclick="showPage('application')">
+      Открыть анкету →
+    </button>
+
+  </div>
+
+  <div class="notice tiny">
+    Демонстрационная версия: информация сохраняется в браузере,
+    в котором открыт сайт. Для реальной работы с несколькими
+    администраторами и сотрудниками на разных устройствах потребуется
+    серверная база данных и авторизация.
+  </div>
+
+</section>
+
+
+<!-- INTERNS -->
+
+<section class="page" id="interns">
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <h2>Список кандидатов и стажёров</h2>
+
+      <button class="btn" onclick="showPage('application')">
+        ＋ Новая анкета
+      </button>
+    </div>
+
+    <div class="toolbar">
+
+      <input
+        class="field"
+        id="search"
+        placeholder="Поиск по имени или email"
+        oninput="renderInterns()">
+
+      <select class="field" id="filter" onchange="renderInterns()">
+        <option value="">Все статусы</option>
+        <option>Тестирование</option>
+        <option>Тест не пройден</option>
+        <option>Обучается</option>
+        <option>Завершил</option>
+      </select>
+
+    </div>
+
+    <div class="table-wrap" id="internTable"></div>
+
+  </div>
+
+</section>
+
+
+<!-- APPLICATION -->
+
+<section class="page" id="application">
+
+  <div class="panel">
+
+    <div class="panel-head">
+
+      <div>
+        <h2>Анкета кандидата на стажировку</h2>
+        <div class="muted">Расскажите о себе и своём опыте.</div>
+      </div>
+
+      <span class="tag">Регистрация</span>
+
+    </div>
+
+    <div class="form-note">
+      Заполните анкету максимально подробно. Поля со звёздочкой обязательны.
+      После отправки анкеты автоматически начнётся тест из 10 вопросов.
+    </div>
+
+    <form id="candidateForm" onsubmit="submitApplication(event)">
+
+      <div class="form-grid">
+
+        <div class="form-field">
+          <label>Имя и фамилия *</label>
+          <input name="name" required placeholder="Анна Петрова">
+        </div>
+
+        <div class="form-field">
+          <label>Email *</label>
+          <input name="email" type="email" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-field">
+          <label>Телефон</label>
+          <input name="phone" placeholder="+49 ...">
+        </div>
+
+        <div class="form-field">
+          <label>Город и страна</label>
+          <input name="location">
+        </div>
+
+        <div class="form-field">
+          <label>LinkedIn</label>
+          <input name="linkedin">
+        </div>
+
+        <div class="form-field">
+          <label>Портфолио / сайт</label>
+          <input name="portfolio">
+        </div>
+
+        <div class="form-field">
+          <label>Учебное заведение</label>
+          <input name="institution">
+        </div>
+
+        <div class="form-field">
+          <label>Специальность</label>
+          <input name="specialty">
+        </div>
+
+        <div class="form-field">
+          <label>Уровень образования</label>
+          <select name="education">
+            <option value="">Выберите</option>
+            <option>Среднее</option>
+            <option>Бакалавриат</option>
+            <option>Магистратура</option>
+            <option>Аспирантура</option>
+            <option>Курсы / самообразование</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Год окончания</label>
+          <input name="graduation" placeholder="2027">
+        </div>
+
+        <div class="form-field">
+          <label>Опыт работы</label>
+          <select name="experience">
+            <option value="">Выберите</option>
+            <option>Нет опыта</option>
+            <option>До 6 месяцев</option>
+            <option>6–12 месяцев</option>
+            <option>1–2 года</option>
+            <option>Более 2 лет</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Направление стажировки</label>
+          <select name="direction">
+            <option value="">Выберите</option>
+            <option>Digital-маркетинг</option>
+            <option>SEO</option>
+            <option>PPC / реклама</option>
+            <option>SMM и контент</option>
+            <option>Аналитика / CRM</option>
+            <option>Дизайн</option>
+          </select>
+        </div>
+
+        <div class="form-field full">
+          <label>Опыт работы: компании, должности и обязанности</label>
+          <textarea name="workDetails" placeholder="Где работали, какие задачи выполняли..."></textarea>
+        </div>
+
+        <div class="form-field full">
+          <label>Проекты и достижения</label>
+          <textarea name="projects" placeholder="Задача проекта, ваш вклад, инструменты и результаты..."></textarea>
+        </div>
+
+        <div class="form-field full">
+          <label>Навыки и инструменты</label>
+          <textarea name="skills" placeholder="Google Analytics, Excel, Figma, SEO..."></textarea>
+        </div>
+
+        <div class="form-field full">
+          <label>Интересы в маркетинге</label>
+          <textarea name="interests"></textarea>
+        </div>
+
+        <div class="form-field full">
+          <label>Почему хотите пройти стажировку? *</label>
+          <textarea name="motivation" required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label>Когда готовы начать?</label>
+          <input name="startDate" type="date">
+        </div>
+
+        <div class="form-field">
+          <label>Доступность</label>
+          <select name="availability">
+            <option value="">Выберите</option>
+            <option>Полный день</option>
+            <option>Неполный день</option>
+            <option>10–15 часов в неделю</option>
+            <option>15–25 часов в неделю</option>
+            <option>Гибкий график</option>
+          </select>
+        </div>
+
+        <div class="form-field full">
+          <label>
+            <input type="checkbox" name="consent" required style="width:auto">
+            Согласен(на) на обработку данных для рассмотрения заявки. *
+          </label>
+        </div>
+
+      </div>
+
+      <button class="btn" type="submit" style="margin-top:18px">
+        Сохранить анкету и начать тест →
+      </button>
+
+      <button class="btn ghost" type="reset" style="margin-top:18px">
+        Очистить
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- ENTRANCE TEST -->
+
+<section class="page" id="assessment">
+
+  <div class="panel">
+
+    <h2>Входной тест по маркетингу</h2>
+
+    <p class="muted">
+      10 вопросов. Проходной результат — 70% (7 правильных ответов из 10).
+    </p>
+
+    <div id="quiz"></div>
+
+    <button class="btn" id="submitQuizButton" onclick="submitQuiz()">
+      Завершить тест
+    </button>
+
+    <p id="quizResult" class="muted"></p>
+
+  </div>
+
+</section>
+
+
+<!-- TRAINING -->
+
+<section class="page" id="training">
+
+  <div class="panel">
+
+    <div class="panel-head">
+
+      <div>
+        <h2>Словарь маркетинга</h2>
+        <div class="muted">46 уроков с отдельными страницами и проверками знаний.</div>
+      </div>
+
+      <span class="tag" id="trainingProgress">0 / 46 пройдено</span>
+
+    </div>
+
+    <div class="progress">
+      <span id="trainingBar" style="width:0%"></span>
+    </div>
+
+    <div class="term-list" id="termList" style="margin-top:18px"></div>
+
+  </div>
+
+</section>
+
+
+<!-- CERTIFICATE -->
+
+<section class="page" id="certificate">
+
+  <div class="panel cert" id="certificateArea">
+
+    <div style="font-size:40px">✧</div>
+
+    <div class="eyebrow">INTERNLAB АКАДЕМИЯ МАРКЕТИНГА</div>
+
+    <h2>СЕРТИФИКАТ О ПРОХОЖДЕНИИ ОБУЧЕНИЯ</h2>
+
+    <p class="muted">
+      Пройдите все уроки и проверки знаний, чтобы получить сертификат.
+    </p>
+
+    <div class="progress" style="max-width:350px;margin:20px auto">
+      <span id="certBar" style="width:0%"></span>
+    </div>
+
+    <b id="certCount">0 / 46 уроков пройдено</b>
+
+    <p>
+      <button class="btn" id="certBtn" disabled onclick="issueCertificate()">
+        Получить сертификат
+      </button>
+    </p>
+
+  </div>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- PROFILE MODAL -->
+
+<div class="profile-modal" id="profileModal" onclick="if(event.target===this)closeProfile()">
+
+  <div class="profile-content">
+
+    <div id="profileBody"></div>
+
+    <button class="btn ghost" onclick="closeProfile()">
+      Закрыть
+    </button>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   STORAGE AND GLOBAL VARIABLES
+========================================= */
+
+const STORAGE_KEY = "internlab_academy_data_v1";
+
+let interns = [];
+let currentInternId = null;
+let passed = new Set();
+let certIssued = false;
+
+
+/* =========================================
+   TRAINING TERMS
+========================================= */
+
+const terms = [
+  ["Маркетинг", "Изучение рынка, потребностей клиентов и создание ценности."],
+  ["Интернет-маркетинг", "Продвижение товаров и услуг с помощью интернет-каналов."],
+  ["Таргетированная реклама", "Реклама, направленная на определённые сегменты аудитории."],
+  ["Контекстная реклама", "Платные объявления, показываемые в ответ на запросы и интересы пользователей."],
+  ["SEO", "Оптимизация сайта для улучшения его позиций в органической поисковой выдаче."],
+  ["Внешнее SEO", "Работа с внешними факторами продвижения сайта, включая ссылки и упоминания."],
+  ["Внутреннее SEO", "Оптимизация структуры, контента и технических параметров сайта."],
+  ["Клиент", "Человек или компания, приобретающие товары или услуги."],
+  ["Веб-аналитические инструменты", "Сервисы для сбора и анализа данных о посетителях сайта."],
+  ["Сквозная аналитика", "Связь рекламных расходов с заявками, продажами и выручкой."],
+  ["Ассоциированные конверсии", "Конверсии, в которых канал участвовал на пути клиента, но не обязательно был последним."],
+  ["Яндекс Метрика", "Инструмент веб-аналитики для изучения посещаемости и поведения пользователей."],
+  ["Google Analytics", "Сервис Google для анализа трафика и поведения пользователей."],
+  ["CTR", "Показатель отношения кликов к показам рекламного объявления."],
+  ["CPC", "Стоимость одного клика по рекламному объявлению."],
+  ["CMS", "Система управления содержимым сайта."],
+  ["Конструкторы сайтов", "Сервисы для создания сайтов без необходимости программировать."],
+  ["Тильда", "Конструктор сайтов для создания лендингов и веб-страниц."],
+  ["WordPress", "Популярная система управления содержимым сайта."],
+  ["Битрикс24", "Платформа для управления клиентами, продажами, задачами и бизнес-процессами."],
+  ["Фигма", "Инструмент для создания дизайна интерфейсов и прототипов."],
+  ["Фотошоп", "Программа для редактирования изображений и создания графики."],
+  ["Title", "HTML-элемент, задающий заголовок страницы во вкладке браузера."],
+  ["Description", "Meta Description — краткое описание содержания страницы."],
+  ["H1, H2, H3", "HTML-заголовки, которые структурируют содержание страницы."],
+  ["SERP в SEO", "Страница результатов поисковой системы по запросу пользователя."],
+  ["CRM", "Система управления взаимоотношениями с клиентами."],
+  ["Лид", "Потенциальный клиент, проявивший интерес к продукту или услуге."],
+  ["Конверсия", "Выполнение пользователем целевого действия."],
+  ["Скрипт продаж", "Подготовленный сценарий общения с потенциальным клиентом."],
+  ["Теплота аудитории", "Степень готовности аудитории к покупке: холодная, тёплая или горячая."],
+  ["Целевая аудитория", "Группа людей, для которой предназначен продукт или услуга."],
+  ["Аватары клиента", "Подробные портреты типичных представителей целевой аудитории."],
+  ["Лендинг", "Одностраничный сайт, созданный для привлечения заявок или продаж."],
+  ["Виды сайтов", "Основные типы сайтов: лендинги, магазины, корпоративные сайты, блоги и порталы."],
+  ["Креатив", "Визуальный или текстовый материал, используемый в рекламе."],
+  ["Ключевое слово", "Слово или фраза, которую пользователь вводит в поисковую систему."],
+  ["Семантика", "Совокупность ключевых слов и поисковых запросов для продвижения сайта."],
+  ["Частотность запроса", "Количество поисковых запросов определённой фразы за период."],
+  ["Roistat", "Сервис сквозной аналитики для оценки эффективности рекламы и продаж."],
+  ["Коллтрекинг", "Технология отслеживания звонков и определения источника обращения."],
+  ["Calltouch", "Сервис маркетинговой аналитики и коллтрекинга."],
+  ["Маркетинговый анализ", "Изучение рынка, конкурентов, аудитории и спроса для принятия решений."],
+  ["Насмотренность", "Способность замечать и оценивать качественные примеры рекламы, дизайна и маркетинга."],
+  ["CPM", "Стоимость тысячи показов рекламного объявления."],
+  ["UTM-метка", "Параметры ссылки, позволяющие определить источник и кампанию рекламного трафика."]
+];
+
+
+/* =========================================
+   NAVIGATION TITLES
+========================================= */
+
+const titles = {
+  dashboard:["Обзор","Общая информация об академии."],
+  interns:["Стажёры","Кандидаты и профили."],
+  application:["Анкета стажёра","Самостоятельная регистрация кандидата."],
+  assessment:["Тест кандидата","Проверка базовых знаний и практического мышления."],
+  training:["Обучение","Последовательная программа маркетинга."],
+  certificate:["Сертификаты","Подтверждение прохождения обучения."]
+};
+
+
+/* =========================================
+   LOAD AND SAVE DATA
+========================================= */
+
+function loadData() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "{}"
+    );
+
+    interns = Array.isArray(saved.interns)
+      ? saved.interns
+      : [];
+
+    currentInternId = saved.currentInternId || null;
+
+    const current = getCurrentIntern();
+
+    passed = new Set(
+      current && Array.isArray(current.trainingPassed)
+        ? current.trainingPassed.filter(
+            i => Number.isInteger(i) && i >= 0 && i < terms.length
+          )
+        : []
+    );
+
+    certIssued = !!(current && current.certIssued);
+
+  } catch(error) {
+    console.error("Ошибка загрузки данных:", error);
+
+    interns = [];
+    currentInternId = null;
+    passed = new Set();
+    certIssued = false;
+  }
+}
+
+
+function saveData() {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        interns,
+        currentInternId
+      })
+    );
+  } catch(error) {
+    console.error("Ошибка сохранения данных:", error);
+    toast("Не удалось сохранить данные в браузере.");
+  }
+}
+
+
+function getCurrentIntern() {
+  return interns.find(x => x.id === currentInternId) || null;
+}
+
+
+function persistTraining() {
+  const current = getCurrentIntern();
+
+  if (!current) return;
+
+  current.trainingPassed = [...passed];
+  current.certIssued = certIssued;
+  current.progress = passed.size;
+  current.lastActivityAt = new Date().toISOString();
+
+  if (passed.size === terms.length) {
+    current.status = "Завершил";
+  } else if (current.testPassed) {
+    current.status = "Обучается";
+  }
+
+  saveData();
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showPage(id) {
+
+  if (id === "training" || id === "certificate") {
+    const current = getCurrentIntern();
+
+    if (!current || !current.testPassed) {
+      toast("Обучение откроется после успешного теста — минимум 7 из 10.");
+      id = "assessment";
+    }
+  }
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+
+  document.querySelectorAll(".nav button").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+
+  document.getElementById("pageTitle").textContent = titles[id][0];
+  document.getElementById("pageSub").textContent = titles[id][1];
+
+  if (id === "training") renderTerms();
+  if (id === "certificate") renderCert();
+  if (id === "assessment") renderQuiz();
+  if (id === "interns") renderInterns();
+
+  window.scrollTo(0,0);
+}
+
+
+document.querySelectorAll(".nav button").forEach(button => {
+  button.onclick = () => showPage(button.dataset.page);
+});
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function toast(message) {
+  const el = document.getElementById("toast");
+
+  el.textContent = message;
+  el.style.display = "block";
+
+  clearTimeout(window.toastTimeout);
+
+  window.toastTimeout = setTimeout(() => {
+    el.style.display = "none";
+  },2800);
+}
+
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g,c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+
+function formatDate(value) {
+  if (!value) return "—";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return escapeHTML(value);
+  }
+
+  return date.toLocaleString("ru-RU");
+}
+
+
+/* =========================================
+   OPEN INDIVIDUAL TERM PAGE
+========================================= */
+
+function openTermPage(index) {
+  const current = getCurrentIntern();
+
+  if (!current || !current.testPassed) {
+    toast("Сначала успешно пройдите входной тест.");
+    return;
+  }
+
+  if (index < 0 || index >= terms.length) {
+    toast("Урок не найден.");
+    return;
+  }
+
+  if (index > 0 && !passed.has(index - 1)) {
+    toast("Сначала завершите предыдущий урок.");
+    return;
+  }
+
+  const termName = terms[index][0];
+
+  const lessonURL =
+    "me%20terms/" +
+    encodeURIComponent(termName) +
+    "/index.html";
+
+  window.location.href = lessonURL;
+}
+
+
+/* =========================================
+   APPLICATION
+========================================= */
+
+function submitApplication(event) {
+  event.preventDefault();
+
+  const form = event.target;
+
+  const data = Object.fromEntries(
+    new FormData(form).entries()
+  );
+
+  const email = (data.email || "").trim().toLowerCase();
+
+  if (interns.some(x =>
+    (x.email || "").toLowerCase() === email
+  )) {
+    toast("Этот email уже зарегистрирован.");
+    return;
+  }
+
+  const candidate = {
+    ...data,
+
+    id: crypto.randomUUID
+      ? crypto.randomUUID()
+      : String(Date.now()) + Math.random(),
+
+    email,
+    role:data.direction || "Кандидат на стажировку",
+    status:"Тестирование",
+    joined:new Date().toLocaleDateString("ru-RU"),
+
+    progress:0,
+
+    testCompleted:false,
+    testPassed:false,
+
+    score:null,
+    percent:null,
+    answers:null,
+    testQuestions:null,
+    testDate:null,
+
+    trainingPassed:[],
+    certIssued:false,
+
+    // История и результаты обучения
+    lessonResults:{},
+    lessonAttempts:{},
+    lessonResponses:{},
+
+    // История входного теста
+    entranceTestAttempts:[],
+
+    // Последняя активность
+    lastActivityAt:new Date().toISOString()
+  };
+
+  interns.unshift(candidate);
+  currentInternId = candidate.id;
+
+  passed = new Set();
+  certIssued = false;
+
+  saveData();
+
+  form.reset();
+
+  updateDashboard();
+  renderInterns();
+  renderRecent();
+  renderQuiz();
+
+  showPage("assessment");
+
+  toast("Анкета сохранена. Начните тестирование.");
+}
+
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+function updateDashboard() {
+  document.getElementById("statInterns").textContent =
+    interns.length;
+
+  document.getElementById("statNew").textContent =
+    interns.filter(x => !x.testCompleted).length;
+
+  document.getElementById("statCert").textContent =
+    interns.filter(x => x.certIssued).length;
+
+  document.getElementById("statTerms").textContent =
+    terms.length;
+}
+
+
+function renderRecent() {
+  const recent = interns.slice(0,5);
+
+  document.getElementById("recent").innerHTML = recent.length
+    ? recent.map(x => `
+        <p>
+          <b>${escapeHTML(x.name)}</b>
+          · ${escapeHTML(x.status)}
+          ${x.testCompleted ? `· ${x.score}/10` : ""}
+          · ${(x.trainingPassed || []).length}/${terms.length} уроков
+        </p>
+      `).join("")
+    : '<p class="muted">Пока нет заявок.</p>';
+}
+
+
+/* =========================================
+   CANDIDATE DIRECTORY
+========================================= */
+
+function renderInterns() {
+  const q = (
+    document.getElementById("search")?.value || ""
+  ).toLowerCase();
+
+  const status =
+    document.getElementById("filter")?.value || "";
+
+  const rows = interns.filter(x =>
+    (
+      (x.name || "").toLowerCase().includes(q) ||
+      (x.email || "").toLowerCase().includes(q)
+    ) &&
+    (!status || x.status === status)
+  );
+
+  document.getElementById("internTable").innerHTML = rows.length
+    ? `
+      <table>
+
+        <thead>
+          <tr>
+            <th>Кандидат</th>
+            <th>Направление</th>
+            <th>Дата</th>
+            <th>Результат теста</th>
+            <th>Прогресс</th>
+            <th>Статус</th>
+            <th>Профиль</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${rows.map(x => `
+            <tr>
+
+              <td>
+                <b>${escapeHTML(x.name)}</b>
+                <div class="tiny">${escapeHTML(x.email)}</div>
+              </td>
+
+              <td>${escapeHTML(x.role)}</td>
+
+              <td>${escapeHTML(x.joined)}</td>
+
+              <td>
+                ${x.testCompleted
+                  ? `${x.score}/10 (${x.percent}%)`
+                  : "Ожидает тест"}
+              </td>
+
+              <td>
+                ${(x.trainingPassed || []).length} / ${terms.length}
+              </td>
+
+              <td>
+                <span class="tag ${
+                  x.testPassed ? "green" :
+                  x.testCompleted ? "orange" : ""
+                }">
+                  ${escapeHTML(x.status)}
+                </span>
+              </td>
+
+              <td>
+                <button
+                  class="btn secondary"
+                  onclick="openProfile('${encodeURIComponent(x.id)}')">
+                  Открыть
+                </button>
+              </td>
+
+            </tr>
+          `).join("")}
+
+        </tbody>
+
+      </table>
+    `
+    : '<div class="muted">Пока нет кандидатов. Отправьте первую анкету.</div>';
+}
+
+
+/* =========================================
+   ADMIN LEARNING REPORT
+========================================= */
+
+function renderLearningReport(candidate) {
+  const completed = new Set(
+    (candidate.trainingPassed || [])
+      .map(Number)
+      .filter(i => Number.isInteger(i) && i >= 0 && i < terms.length)
+  );
+
+  const results = candidate.lessonResults || {};
+  const attempts = candidate.lessonAttempts || {};
+  const responses = candidate.lessonResponses || {};
+
+  const completedCount = completed.size;
+
+  const percentage = Math.round(
+    completedCount / terms.length * 100
+  );
+
+  const lessonRows = terms.map((term, index) => {
+    const result = results[String(index)];
+
+    const lessonAttempts = Array.isArray(attempts[String(index)])
+      ? attempts[String(index)]
+      : [];
+
+    const response = responses[String(index)];
+
+    const isCompleted = completed.has(index);
+
+    let status = "Не начат";
+    let tagClass = "";
+
+    if (isCompleted) {
+      status = "Пройден";
+      tagClass = "green";
+    } else if (lessonAttempts.length > 0 || result) {
+      status = "Есть попытки";
+      tagClass = "orange";
+    }
+
+    const score = result
+      ? `${result.score}/${result.total} (${result.percent}%)`
+      : "—";
+
+    const attemptsCount = Math.max(
+      lessonAttempts.length,
+      Number(result?.attemptsCount || 0)
+    );
+
+    const resultDate =
+      result?.attemptedAt ||
+      result?.completedAt ||
+      result?.date ||
+      null;
+
+    return `
+      <tr>
+        <td>
+          <b>${index + 1}. ${escapeHTML(term[0])}</b>
+        </td>
+
+        <td>
+          <span class="tag ${tagClass}">
+            ${status}
+          </span>
+        </td>
+
+        <td>${score}</td>
+
+        <td>${attemptsCount}</td>
+
+        <td>${formatDate(resultDate)}</td>
+
+        <td>
+          ${response
+            ? `<span class="tag green">Сохранено</span>`
+            : "—"}
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  const attemptHistory = terms.map((term, index) => {
+    const lessonAttempts = Array.isArray(attempts[String(index)])
+      ? attempts[String(index)]
+      : [];
+
+    if (!lessonAttempts.length) return "";
+
+    return `
+      <div class="answer-review">
+        <b>${index + 1}. ${escapeHTML(term[0])}</b>
+
+        ${lessonAttempts.map((attempt, attemptIndex) => `
+          <p>
+            Попытка ${attemptIndex + 1}:
+            <b>
+              ${escapeHTML(attempt.score)}/${escapeHTML(attempt.total)}
+              (${escapeHTML(attempt.percent)}%)
+            </b>
+            —
+            ${attempt.passed ? "Пройдена" : "Не пройдена"}
+          </p>
+
+          <p class="tiny">
+            ${formatDate(
+              attempt.attemptedAt ||
+              attempt.completedAt ||
+              attempt.date
+            )}
+          </p>
+        `).join("")}
+      </div>
+    `;
+  }).join("");
+
+  const savedResponses = terms.map((term, index) => {
+    const response = responses[String(index)];
+
+    if (!response) return "";
+
+    let responseText = "";
+
+    if (typeof response === "string") {
+      responseText = response;
+    } else {
+      responseText = JSON.stringify(response, null, 2);
+    }
+
+    return `
+      <div class="answer-review">
+        <b>${index + 1}. ${escapeHTML(term[0])}</b>
+        <p>${escapeHTML(responseText)}</p>
+        <p class="tiny">
+          Сохранено:
+          ${formatDate(response.savedAt)}
+        </p>
+      </div>
+    `;
+  }).join("");
+
+  return `
+    <div class="profile-section">
+
+      <h3>ПРОГРЕСС ОБУЧЕНИЯ</h3>
+
+      <p>
+        <b>${completedCount} / ${terms.length}</b>
+        уроков пройдено (${percentage}%)
+      </p>
+
+      <div class="progress">
+        <span style="width:${percentage}%"></span>
+      </div>
+
+      <p>
+        Сертификат:
+        <b>${candidate.certIssued ? "Выдан" : "Не выдан"}</b>
+      </p>
+
+      <p>
+        Последняя активность:
+        ${formatDate(candidate.lastActivityAt)}
+      </p>
+
+      <h3 style="margin-top:18px">
+        РЕЗУЛЬТАТЫ ПО ВСЕМ 46 УРОКАМ
+      </h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Урок</th>
+              <th>Статус</th>
+              <th>Последний результат</th>
+              <th>Попытки</th>
+              <th>Дата теста</th>
+              <th>Практика</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            ${lessonRows}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:22px">
+        ИСТОРИЯ ПОПЫТОК ТЕСТОВ ПО УРОКАМ
+      </h3>
+
+      ${
+        attemptHistory.trim()
+          ? attemptHistory
+          : '<p class="muted">История попыток уроков пока отсутствует.</p>'
+      }
+
+      <h3 style="margin-top:22px">
+        СОХРАНЁННЫЕ ПРАКТИЧЕСКИЕ ЗАДАНИЯ
+      </h3>
+
+      ${
+        savedResponses.trim()
+          ? savedResponses
+          : '<p class="muted">Сохранённых ответов на практические задания пока нет.</p>'
+      }
+
+    </div>
+  `;
+}
+
+
+/* =========================================
+   ADMIN PROFILE
+========================================= */
+
+function openProfile(encodedId) {
+  const id = decodeURIComponent(encodedId);
+  const x = interns.find(c => c.id === id);
+
+  if (!x) return;
+
+  const sections = [
+    ["Контакты",`
+Email: ${x.email}
+Телефон: ${x.phone || "—"}
+Город: ${x.location || "—"}
+LinkedIn: ${x.linkedin || "—"}
+Портфолио: ${x.portfolio || "—"}`],
+
+    ["Образование",`
+Учебное заведение: ${x.institution || "—"}
+Специальность: ${x.specialty || "—"}
+Уровень: ${x.education || "—"}
+Год окончания: ${x.graduation || "—"}`],
+
+    ["Опыт работы",`
+Продолжительность: ${x.experience || "—"}
+Подробности: ${x.workDetails || "—"}`],
+
+    ["Проекты",x.projects || "Не указано"],
+    ["Навыки",x.skills || "Не указано"],
+
+    ["Интересы и мотивация",`
+Интересы: ${x.interests || "—"}
+Мотивация: ${x.motivation || "—"}`],
+
+    ["Организационная информация",`
+Направление: ${x.direction || "—"}
+Начало: ${x.startDate || "—"}
+Доступность: ${x.availability || "—"}`]
+  ];
+
+  let testReview = "";
+
+  if (x.testCompleted && Array.isArray(x.answers)) {
+
+    const savedQuestions =
+      Array.isArray(x.testQuestions) && x.testQuestions.length
+        ? x.testQuestions
+        : questions.map(q => ({
+            question:q[0],
+            options:q[1],
+            correctIndex:q[2],
+            explanation:q[3]
+          }));
+
+    testReview = `
+      <div class="profile-section">
+
+        <h3>РЕЗУЛЬТАТ ВХОДНОГО ТЕСТА</h3>
+
+        <p>
+          Итог:
+          <b>${x.score}/${savedQuestions.length} (${x.percent}%)</b>
+        </p>
+
+        <p>
+          Статус:
+          <b>${x.testPassed ? "Тест пройден" : "Тест не пройден"}</b>
+        </p>
+
+        <p>Дата: ${escapeHTML(x.testDate || "—")}</p>
+
+        <h3 style="margin-top:18px">
+          АНАЛИЗ ОТВЕТОВ КАНДИДАТА
+        </h3>
+
+        ${savedQuestions.map((q,i) => {
+
+          const selected = x.answers[i];
+          const correct = q.correctIndex;
+          const isCorrect = selected === correct;
+          const options = Array.isArray(q.options) ? q.options : [];
+
+          return `
+            <div class="answer-review">
+
+              <b>${i+1}. ${escapeHTML(q.question)}</b>
+
+              <p class="${isCorrect ? "answer-correct" : "answer-wrong"}">
+                <b>Ответ кандидата:</b>
+                ${selected === null || selected === undefined
+                  ? "Нет ответа"
+                  : escapeHTML(options[selected] ?? "Ответ не найден")}
+              </p>
+
+              <p class="answer-correct">
+                <b>Правильный ответ:</b>
+                ${escapeHTML(options[correct] ?? "Не указан")}
+              </p>
+
+              <p class="tiny">
+                <b>Пояснение:</b>
+                ${escapeHTML(q.explanation || "")}
+              </p>
+
+              <span class="tag ${isCorrect ? "green" : "orange"}">
+                ${isCorrect ? "Верно" : "Ошибка"}
+              </span>
+
+            </div>
+          `;
+        }).join("")}
+
+      </div>
+    `;
+
+  } else {
+
+    testReview = `
+      <div class="profile-section">
+        <h3>ВХОДНОЙ ТЕСТ</h3>
+        <p>Кандидат ещё не завершил тестирование.</p>
+      </div>
+    `;
+  }
+
+  const entranceAttempts = Array.isArray(x.entranceTestAttempts)
+    ? x.entranceTestAttempts
+    : [];
+
+  const entranceHistory = `
+    <div class="profile-section">
+      <h3>ИСТОРИЯ ПОПЫТОК ВХОДНОГО ТЕСТА</h3>
+
+      ${
+        entranceAttempts.length
+          ? entranceAttempts.map((attempt, index) => `
+              <div class="answer-review">
+                <p>
+                  Попытка ${index + 1}:
+                  <b>
+                    ${escapeHTML(attempt.score)}/${escapeHTML(attempt.total)}
+                    (${escapeHTML(attempt.percent)}%)
+                  </b>
+                  —
+                  ${attempt.passed ? "Пройдена" : "Не пройдена"}
+                </p>
+
+                <p class="tiny">
+                  ${formatDate(attempt.date)}
+                </p>
+              </div>
+            `).join("")
+          : "<p>История попыток пока отсутствует.</p>"
+      }
+    </div>
+  `;
+
+  document.getElementById("profileBody").innerHTML = `
+    <div class="eyebrow">ПРОФИЛЬ КАНДИДАТА</div>
+
+    <h2>${escapeHTML(x.name)}</h2>
+
+    <p class="muted">
+      ${escapeHTML(x.status)} · ${escapeHTML(x.joined)}
+    </p>
+
+    ${sections.map(([title,content]) => `
+      <div class="profile-section">
+        <h3>${title}</h3>
+        <p>${escapeHTML(content)}</p>
+      </div>
+    `).join("")}
+
+    ${testReview}
+
+    ${entranceHistory}
+
+    ${renderLearningReport(x)}
+  `;
+
+  document.getElementById("profileModal").classList.add("open");
+}
+
+
+function closeProfile() {
+  document.getElementById("profileModal").classList.remove("open");
+}
+
+
+/* =========================================
+   ENTRANCE TEST QUESTIONS
+========================================= */
+
+const questions = [
+
+  [
+    "Что такое SEO?",
+    [
+      "Способ продвижения сайта в поисковых системах",
+      "Вид платной рекламы в социальных сетях",
+      "Инструмент для создания дизайна сайта",
+      "Способ рассылки электронных писем"
+    ],
+    0,
+    "SEO — это поисковая оптимизация сайта, которая помогает улучшить его позиции в органической выдаче поисковых систем."
+  ],
+
+  [
+    "Для чего нужна таргетированная реклама?",
+    [
+      "Для показа рекламы определённой аудитории",
+      "Для автоматического создания сайтов",
+      "Для улучшения скорости загрузки сайта",
+      "Для отправки сообщений всем пользователям интернета"
+    ],
+    0,
+    "Таргетированная реклама позволяет показывать объявления определённой целевой аудитории."
+  ],
+
+  [
+    "Для чего нужны UTM-метки?",
+    [
+      "Для улучшения дизайна рекламных объявлений",
+      "Для отслеживания источников трафика и эффективности рекламных кампаний",
+      "Для увеличения количества подписчиков автоматически",
+      "Для ускорения загрузки сайта"
+    ],
+    1,
+    "UTM-метки помогают определить, откуда пришёл пользователь и какая рекламная кампания привела его на сайт."
+  ],
+
+  [
+    "Если рекламная кампания получает много кликов, но мало заявок, что ты будешь делать?",
+    [
+      "Сразу увеличу рекламный бюджет",
+      "Проверю целевую аудиторию, посадочную страницу и путь пользователя до заявки",
+      "Полностью остановлю всю рекламу без анализа",
+      "Буду продолжать кампанию без изменений"
+    ],
+    1,
+    "Важно проанализировать всю воронку: возможно, проблема в аудитории, предложении, посадочной странице или форме заявки."
+  ],
+
+  [
+    "Если ты понимаешь, что не успеваешь выполнить задачу в срок, как поступишь?",
+    [
+      "Ничего не скажу и постараюсь закончить в последний момент",
+      "Сразу сообщу ответственному человеку и предложу новый срок",
+      "Перестану выполнять задачу",
+      "Подожду, пока кто-нибудь сам спросит о результате"
+    ],
+    1,
+    "Ответственный подход — предупредить заранее, объяснить ситуацию и согласовать дальнейшие действия."
+  ],
+
+  [
+    "Тебе поручили задачу, с которой ты раньше не сталкивался. С чего начнёшь?",
+    [
+      "Откажусь, потому что у меня нет опыта",
+      "Начну выполнять задачу наугад",
+      "Уточню ожидаемый результат, изучу доступные материалы и попробую разобраться",
+      "Буду ждать, пока кто-нибудь выполнит её за меня"
+    ],
+    2,
+    "Хороший подход — проявить инициативу, разобраться в задаче и задавать вопросы, если нужна помощь."
+  ],
+
+  [
+    "Если у бренда мало бюджета на продвижение, какие варианты ты предложишь?",
+    [
+      "Откажусь от продвижения, пока бюджет не увеличится",
+      "Органический контент, SEO, сотрудничество и тестирование небольших рекламных кампаний",
+      "Потрачу весь бюджет на один рекламный пост",
+      "Буду использовать все рекламные каналы одновременно без анализа"
+    ],
+    1,
+    "При ограниченном бюджете важно выбирать доступные каналы, тестировать гипотезы и распределять ресурсы по результатам."
+  ],
+
+  [
+    "Как ты поймёшь, что контент интересен целевой аудитории?",
+    [
+      "По количеству опубликованных постов",
+      "По количеству подписчиков аккаунта, не анализируя другие показатели",
+      "По комментариям, охватам и другим показателям",
+      "По личному мнению автора"
+    ],
+    2,
+    "Интерес аудитории оценивают по метрикам вовлечённости и другим показателям, соответствующим цели публикации."
+  ],
+
+  [
+    "Если конкурент использует похожую рекламную стратегию, как можно выделить бренд?",
+    [
+      "Скопировать его рекламу полностью",
+      "Снизить цену на все продукты независимо от ситуации",
+      "Изучить потребности аудитории и подчеркнуть уникальные преимущества",
+      "Полностью отказаться от рекламы"
+    ],
+    2,
+    "Чтобы выделиться, нужно понять аудиторию и показать уникальную ценность бренда, а не просто копировать конкурентов."
+  ],
+
+  [
+    "Ты заметил ошибку в уже опубликованном рекламном материале. Твои действия?",
+    [
+      "Оставлю всё как есть, если никто не заметил",
+      "Удалю материал и никому не сообщу",
+      "Оценю последствия и помогу как можно быстрее исправить ошибку",
+      "Буду ждать, пока клиент пожалуется"
+    ],
+    2,
+    "Важно своевременно сообщить об ошибке, оценить её влияние и принять меры для исправления."
+  ]
+
+];
+
+
+/* =========================================
+   RENDER ENTRANCE TEST
+========================================= */
+
+function renderQuiz() {
+  const current = getCurrentIntern();
+
+  const quiz = document.getElementById("quiz");
+  const result = document.getElementById("quizResult");
+  const submitButton = document.getElementById("submitQuizButton");
+
+  if (!current) {
+
+    quiz.innerHTML = `
+      <div class="notice">
+        Сначала заполните анкету кандидата.
+        После отправки анкеты вы автоматически перейдёте к тесту.
+      </div>
+    `;
+
+    result.textContent = "";
+    submitButton.style.display = "none";
+
+    return;
+  }
+
+  submitButton.style.display = "inline-block";
+
+  if (current.testCompleted) {
+
+    quiz.innerHTML = `
+      <div class="lesson-box">
+
+        <h3>Тест завершён</h3>
+
+        <p>
+          Ваш результат:
+          <b>${current.score}/10 (${current.percent}%)</b>
+        </p>
+
+        <p>
+          <b>
+            ${current.testPassed
+              ? "Тест пройден — обучение открыто."
+              : "Тест не пройден — обучение пока закрыто."}
+          </b>
+        </p>
+
+        ${current.testPassed
+          ? `<button class="btn" onclick="showPage('training')">
+               Перейти к обучению
+             </button>`
+          : `<p class="tiny">
+               Для доступа к обучению необходимо набрать
+               не менее 7 правильных ответов из 10.
+             </p>`}
+
+      </div>
+    `;
+
+    result.textContent = "";
+    submitButton.style.display = "none";
+
+    return;
+  }
+
+  quiz.innerHTML = questions.map((q,i) => `
+    <div class="question">
+
+      <h3>${i+1}. ${escapeHTML(q[0])}</h3>
+
+      ${q[1].map((answer,j) => `
+        <label class="option">
+          <input type="radio" name="q${i}" value="${j}">
+          ${escapeHTML(answer)}
+        </label>
+      `).join("")}
+
+    </div>
+  `).join("");
+
+  result.textContent = "";
+  submitButton.style.display = "inline-block";
+}
+
+
+/* =========================================
+   SUBMIT ENTRANCE TEST
+========================================= */
+
+function submitQuiz() {
+  const current = getCurrentIntern();
+
+  if (!current) {
+    toast("Сначала заполните анкету кандидата.");
+    return;
+  }
+
+  if (current.testCompleted) {
+    renderQuiz();
+    return;
+  }
+
+  const answers = [];
+  let score = 0;
+
+  questions.forEach((q,i) => {
+
+    const selected = document.querySelector(
+      `input[name="q${i}"]:checked`
+    );
+
+    if (!selected) {
+      answers.push(null);
+    } else {
+
+      const answerIndex = Number(selected.value);
+
+      answers.push(answerIndex);
+
+      if (answerIndex === q[2]) {
+        score++;
+      }
+    }
+  });
+
+  const answeredCount = answers.filter(
+    a => a !== null
+  ).length;
+
+  if (answeredCount !== questions.length) {
+
+    document.getElementById("quizResult").textContent =
+      `Ответьте на все вопросы: ${answeredCount}/${questions.length}.`;
+
+    return;
+  }
+
+  const percent = Math.round(
+    score / questions.length * 100
+  );
+
+  const passedTest = percent >= 70;
+
+  const now = new Date();
+
+  // Сохраняем историю каждой попытки входного теста.
+  current.entranceTestAttempts =
+    Array.isArray(current.entranceTestAttempts)
+      ? current.entranceTestAttempts
+      : [];
+
+  current.entranceTestAttempts.push({
+    score,
+    total:questions.length,
+    percent,
+    passed:passedTest,
+    answers:[...answers],
+    date:now.toISOString()
+  });
+
+  current.answers = answers;
+
+  current.testQuestions = questions.map(q => ({
+    question:q[0],
+    options:[...q[1]],
+    correctIndex:q[2],
+    explanation:q[3]
+  }));
+
+  current.questionSetVersion = "internlab-marketing-test-v2";
+
+  current.score = score;
+  current.percent = percent;
+
+  current.testCompleted = true;
+  current.testPassed = passedTest;
+
+  current.testDate = now.toLocaleString("ru-RU");
+  current.lastActivityAt = now.toISOString();
+
+  current.status = passedTest
+    ? "Обучается"
+    : "Тест не пройден";
+
+  current.trainingPassed = [];
+  current.certIssued = false;
+  current.progress = 0;
+
+  // Инициализируем объекты обучения, не удаляя старые данные.
+  current.lessonResults = current.lessonResults || {};
+  current.lessonAttempts = current.lessonAttempts || {};
+  current.lessonResponses = current.lessonResponses || {};
+
+  passed = new Set();
+  certIssued = false;
+
+  saveData();
+
+  updateDashboard();
+  renderInterns();
+  renderRecent();
+  renderQuiz();
+
+  toast(
+    passedTest
+      ? "Поздравляем! Тест пройден. Обучение открыто."
+      : "Тест не пройден. Обучение остаётся закрытым."
+  );
+}
+
+
+/* =========================================
+   RENDER ALL TRAINING TERMS
+========================================= */
+
+function renderTerms() {
+  const container = document.getElementById("termList");
+
+  if (!container) return;
+
+  const current = getCurrentIntern();
+
+  if (!current || !current.testPassed) {
+    container.innerHTML = `
+      <div class="notice">
+        Чтобы открыть уроки, сначала необходимо пройти входной тест.
+      </div>
+    `;
+    return;
+  }
+
+  // Используем прогресс выбранного кандидата.
+  passed = new Set(
+    (current.trainingPassed || []).filter(
+      i => Number.isInteger(i) && i >= 0 && i < terms.length
+    )
+  );
+
+  const completedCount = passed.size;
+
+  const percentage = terms.length
+    ? completedCount / terms.length * 100
+    : 0;
+
+  document.getElementById("trainingProgress").textContent =
+    `${completedCount} / ${terms.length} пройдено`;
+
+  document.getElementById("trainingBar").style.width =
+    percentage + "%";
+
+  container.innerHTML = terms.map((term,i) => {
+
+    const isPassed = passed.has(i);
+
+    const isLocked =
+      i > 0 && !passed.has(i - 1);
+
+    let status = "Доступно для изучения";
+    let buttonText = "Изучать";
+    let tagClass = "";
+
+    if (isPassed) {
+
+      status = "✓ Урок пройден";
+      buttonText = "Повторить";
+      tagClass = "green";
+
+    } else if (isLocked) {
+
+      status = "🔒 Сначала пройдите предыдущий урок";
+      buttonText = "Заблокировано";
+    }
+
+    return `
+      <div class="term ${isPassed ? "done" : ""} ${isLocked ? "locked" : ""}">
+
+        <div>
+          <b>${i+1}. ${escapeHTML(term[0])}</b>
+        </div>
+
+        <p class="tiny">
+          ${escapeHTML(term[1])}
+        </p>
+
+        <span class="tag ${tagClass}">
+          ${status}
+        </span>
+
+        <div class="term-actions">
+
+          <button
+            class="btn ${isPassed ? "secondary" : ""}"
+            onclick="openTermPage(${i})"
+            ${isLocked ? "disabled" : ""}
+          >
+            ${buttonText}
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/* =========================================
+   CERTIFICATES
+========================================= */
+
+function renderCert() {
+  const current = getCurrentIntern();
+
+  const completed = current && current.testPassed
+    ? new Set(current.trainingPassed || [])
+    : new Set();
+
+  const count = completed.size;
+
+  const percentage = terms.length
+    ? count / terms.length * 100
+    : 0;
+
+  const canReceive =
+    current &&
+    current.testPassed &&
+    count === terms.length;
+
+  const alreadyIssued = !!(
+    current && current.certIssued
+  );
+
+  const area = document.getElementById("certificateArea");
+
+  if (alreadyIssued) {
+
+    area.innerHTML = `
+      <div style="font-size:45px">🏆</div>
+
+      <div class="eyebrow">INTERNLAB</div>
+
+      <h2>СЕРТИФИКАТ</h2>
+
+      <p>
+        Подтверждает успешное прохождение программы маркетинга.
+      </p>
+
+      <h2>${escapeHTML(current.name)}</h2>
+
+      <p>${escapeHTML(current.testDate || "")}</p>
+
+      <p><b>${terms.length} уроков пройдено</b></p>
+
+      <button class="btn" onclick="window.print()">
+        Распечатать сертификат
+      </button>
+    `;
+
+    return;
+  }
+
+  area.innerHTML = `
+    <div style="font-size:40px">✧</div>
+
+    <div class="eyebrow">
+      INTERNLAB АКАДЕМИЯ МАРКЕТИНГА
+    </div>
+
+    <h2>СЕРТИФИКАТ О ПРОХОЖДЕНИИ ОБУЧЕНИЯ</h2>
+
+    <p class="muted">
+      Пройдите все уроки и проверки знаний, чтобы получить сертификат.
+    </p>
+
+    <div class="progress" style="max-width:350px;margin:20px auto">
+      <span id="certBar" style="width:${percentage}%"></span>
+    </div>
+
+    <b id="certCount">
+      ${count} / ${terms.length} уроков пройдено
+    </b>
+
+    <p>
+      <button
+        class="btn"
+        id="certBtn"
+        ${canReceive ? "" : "disabled"}
+        onclick="issueCertificate()">
+        Получить сертификат
+      </button>
+    </p>
+  `;
+}
+
+
+function issueCertificate() {
+  const current = getCurrentIntern();
+
+  if (!current || !current.testPassed) {
+    toast("Сначала пройдите входной тест.");
+    return;
+  }
+
+  const completed = new Set(
+    current.trainingPassed || []
+  );
+
+  if (completed.size !== terms.length) {
+    toast("Необходимо завершить все уроки.");
+    return;
+  }
+
+  certIssued = true;
+
+  current.certIssued = true;
+  current.status = "Завершил";
+  current.lastActivityAt = new Date().toISOString();
+
+  persistTraining();
+
+  renderCert();
+  updateDashboard();
+  renderInterns();
+  renderRecent();
+
+  toast("Сертификат получен!");
+}
+
+
+/* =========================================
+   REFRESH PROGRESS WHEN RETURNING FROM LESSON
+========================================= */
+
+window.addEventListener("pageshow",function() {
+
+  loadData();
+
+  updateDashboard();
+  renderInterns();
+  renderRecent();
+
+  const trainingPage =
+    document.getElementById("training");
+
+  if (trainingPage && trainingPage.classList.contains("active")) {
+    renderTerms();
+  }
+
+  const certificatePage =
+    document.getElementById("certificate");
+
+  if (certificatePage && certificatePage.classList.contains("active")) {
+    renderCert();
+  }
+});
+
+
+/* =========================================
+   INITIALIZE APPLICATION
+========================================= */
+
+loadData();
+
+renderQuiz();
+renderTerms();
+renderInterns();
+renderRecent();
+updateDashboard();
+
+</script>
+
+</body>
+</html>

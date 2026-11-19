@@ -1,0 +1,1504 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Интернет-маркетинг — InternLab</title>
+
+<style>
+:root {
+  --purple:#6657e8;
+  --purple-light:#f1efff;
+  --ink:#20243a;
+  --muted:#747d91;
+  --bg:#f5f6fa;
+  --white:#fff;
+  --line:#e7e9f0;
+  --green:#16865b;
+  --red:#c34d4d;
+  --orange:#b8791a;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.65 system-ui,-apple-system,sans-serif;
+}
+
+.container {
+  width:min(100% - 32px, 950px);
+  margin:0 auto;
+  padding:25px 0 60px;
+}
+
+.back {
+  display:inline-block;
+  margin-bottom:22px;
+  color:var(--purple);
+  text-decoration:none;
+  font-weight:700;
+}
+
+.back:hover { text-decoration:underline; }
+
+.hero {
+  padding:35px;
+  background:linear-gradient(130deg,#242344,#5146a8);
+  color:white;
+  border-radius:18px;
+  margin-bottom:22px;
+}
+
+.eyebrow {
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  opacity:.75;
+}
+
+.hero h1 {
+  font-size:clamp(28px,5vw,42px);
+  line-height:1.15;
+  margin:12px 0;
+}
+
+.hero p {
+  max-width:680px;
+  color:#e1defe;
+}
+
+.hero-meta {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.hero-meta span {
+  background:#ffffff20;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.card {
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:25px;
+  margin-bottom:18px;
+}
+
+h2 {
+  font-size:21px;
+  line-height:1.3;
+  margin:0 0 15px;
+}
+
+h3 {
+  font-size:16px;
+  margin:22px 0 8px;
+}
+
+p { margin:10px 0; }
+
+.muted { color:var(--muted); }
+
+.lead {
+  font-size:17px;
+  color:#454d63;
+}
+
+.definition {
+  background:var(--purple-light);
+  border-left:4px solid var(--purple);
+  padding:17px 20px;
+  border-radius:8px;
+  margin:18px 0;
+}
+
+.definition strong { color:var(--purple); }
+
+ul,ol { padding-left:22px; }
+
+li { margin:7px 0; }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+  margin:17px 0;
+}
+
+.tool {
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px;
+  background:#fff;
+}
+
+.tool h3 {
+  margin:0 0 7px;
+  color:var(--purple);
+}
+
+.tool p {
+  font-size:13px;
+  color:#606a7e;
+  margin:0;
+}
+
+.example {
+  background:#f8f9fc;
+  border:1px solid var(--line);
+  padding:16px;
+  border-radius:10px;
+  margin:15px 0;
+}
+
+.example strong { color:var(--purple); }
+
+.table-wrap { overflow-x:auto; }
+
+table {
+  width:100%;
+  border-collapse:collapse;
+  min-width:520px;
+}
+
+th,td {
+  text-align:left;
+  padding:12px;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+th {
+  color:var(--muted);
+  background:#fafaff;
+}
+
+.formula {
+  display:block;
+  background:#f5f3ff;
+  color:#5144bd;
+  padding:11px 14px;
+  border-radius:8px;
+  margin:8px 0;
+  font-weight:700;
+  font-family:monospace;
+}
+
+.case-step {
+  display:flex;
+  gap:13px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.case-number {
+  width:29px;
+  height:29px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:var(--purple-light);
+  color:var(--purple);
+  font-weight:800;
+}
+
+textarea {
+  width:100%;
+  min-height:150px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  resize:vertical;
+  font:inherit;
+  background:#fcfcfe;
+}
+
+button {
+  border:0;
+  border-radius:9px;
+  padding:11px 16px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn {
+  background:var(--purple);
+  color:white;
+}
+
+.btn:hover { filter:brightness(.95); }
+
+.btn:disabled {
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.btn-secondary {
+  background:var(--purple-light);
+  color:var(--purple);
+}
+
+.question {
+  padding:17px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.question h3 {
+  margin:0 0 12px;
+  font-size:15px;
+}
+
+.option {
+  display:block;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:10px 12px;
+  margin:7px 0;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.option:hover { background:#faf9ff; }
+
+.option:has(input:checked) {
+  border-color:var(--purple);
+  background:var(--purple-light);
+}
+
+.option input { margin-right:8px; }
+
+.result {
+  display:none;
+  margin-top:18px;
+  padding:16px;
+  border-radius:10px;
+}
+
+.result.success {
+  display:block;
+  background:#eaf8f0;
+  color:#176b49;
+}
+
+.result.failure {
+  display:block;
+  background:#fff0f0;
+  color:#a33d3d;
+}
+
+.progress {
+  height:8px;
+  border-radius:20px;
+  background:#eeeef4;
+  overflow:hidden;
+  margin:14px 0;
+}
+
+.progress span {
+  display:block;
+  height:100%;
+  width:0;
+  background:var(--purple);
+  transition:width .2s;
+}
+
+.status {
+  padding:14px;
+  background:#f7f7fb;
+  border:1px solid var(--line);
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.source-link {
+  display:block;
+  color:var(--purple);
+  margin:10px 0;
+  overflow-wrap:anywhere;
+}
+
+.footer {
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:20px;
+}
+
+@media(max-width:650px) {
+  .container { width:min(100% - 22px,950px); }
+  .hero { padding:25px 20px; }
+  .card { padding:19px; }
+  .grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back" href="../../index.html">
+  ← Вернуться в академию
+</a>
+
+<header class="hero">
+
+  <div class="eyebrow">INTERNLAB · УРОК 02 ИЗ 46</div>
+
+  <h1>Интернет-маркетинг</h1>
+
+  <p>
+    Как привлекать клиентов через интернет, выбирать каналы продвижения,
+    выстраивать маркетинговую стратегию и оценивать результаты.
+  </p>
+
+  <div class="hero-meta">
+    <span>📚 Теория</span>
+    <span>💡 Практика</span>
+    <span>☑ Проверочный тест</span>
+    <span>⏱ 30–45 минут</span>
+  </div>
+
+</header>
+
+
+<!-- ACCESS CHECK -->
+
+<div class="status" id="accessStatus">
+  Проверяем доступ к уроку...
+</div>
+
+
+<!-- SECTION 1 -->
+
+<section class="card">
+
+  <h2>1. Что такое интернет-маркетинг?</h2>
+
+  <p class="lead">
+    Интернет-маркетинг — это комплекс методов и инструментов,
+    которые помогают компании продвигать товары и услуги,
+    привлекать клиентов и увеличивать продажи с помощью интернета.
+  </p>
+
+  <div class="definition">
+    <strong>Главная идея:</strong>
+    интернет-маркетинг помогает найти нужную аудиторию,
+    донести до неё ценность продукта и привести пользователя
+    к целевому действию — например, заявке, покупке или подписке.
+  </div>
+
+  <p>
+    В отличие от традиционного маркетинга, интернет-маркетинг
+    использует цифровые каналы коммуникации: поисковые системы,
+    социальные сети, сайты, рекламные платформы, электронную почту
+    и другие онлайн-инструменты.
+  </p>
+
+  <h3>Основные задачи интернет-маркетинга</h3>
+
+  <ul>
+    <li><b>Узнаваемость:</b> сделать бренд заметным для потенциальных клиентов.</li>
+    <li><b>Привлечение:</b> привести на сайт или страницу заинтересованных пользователей.</li>
+    <li><b>Конверсия:</b> превратить посетителей в покупателей или лидов.</li>
+    <li><b>Удержание:</b> возвращать существующих клиентов и стимулировать повторные покупки.</li>
+    <li><b>Аналитика:</b> измерять результаты и улучшать маркетинговые решения.</li>
+  </ul>
+
+  <div class="example">
+    <strong>Пример:</strong>
+    интернет-магазин запускает рекламу новой коллекции обуви.
+    Пользователь видит объявление, переходит на сайт, выбирает товар
+    и оформляет заказ. Маркетолог анализирует, сколько стоил переход,
+    сколько людей купили товар и окупилась ли реклама.
+  </div>
+
+</section>
+
+
+<!-- SECTION 2 -->
+
+<section class="card">
+
+  <h2>2. Основные каналы интернет-маркетинга</h2>
+
+  <p>
+    Канал продвижения — это способ, с помощью которого компания
+    взаимодействует с потенциальными клиентами в интернете.
+    У каждого канала свои особенности, стоимость и задачи.
+  </p>
+
+  <div class="grid">
+
+    <div class="tool">
+      <h3>SEO</h3>
+      <p>
+        Поисковая оптимизация сайта. Помогает получать органический
+        трафик из поисковых систем без оплаты за каждый клик.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>Контекстная реклама</h3>
+      <p>
+        Платные объявления в поисковых системах и рекламных сетях.
+        Позволяет привлекать пользователей, заинтересованных в продукте.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>Таргетированная реклама</h3>
+      <p>
+        Реклама, ориентированная на выбранные сегменты аудитории
+        по интересам, характеристикам и поведению.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>SMM</h3>
+      <p>
+        Продвижение бренда в социальных сетях: контент, общение
+        с подписчиками, формирование сообщества и реклама.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>Контент-маркетинг</h3>
+      <p>
+        Создание полезных статей, видео, инструкций и других материалов,
+        которые привлекают и удерживают аудиторию.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>Email-маркетинг</h3>
+      <p>
+        Коммуникация с аудиторией через электронную почту:
+        рассылки, предложения, новости и автоматические письма.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>Инфлюенс-маркетинг</h3>
+      <p>
+        Продвижение через блогеров, авторов контента и лидеров мнений,
+        которым доверяет определённая аудитория.
+      </p>
+    </div>
+
+    <div class="tool">
+      <h3>Партнёрский маркетинг</h3>
+      <p>
+        Привлечение клиентов через партнёров, которые получают
+        вознаграждение за результативные рекомендации.
+      </p>
+    </div>
+
+  </div>
+
+  <h3>Как выбрать подходящий канал?</h3>
+
+  <p>При выборе нужно учитывать:</p>
+
+  <ul>
+    <li>где потенциальные клиенты проводят время;</li>
+    <li>как они ищут и выбирают продукт;</li>
+    <li>какой бюджет доступен компании;</li>
+    <li>насколько быстро нужен результат;</li>
+    <li>какие показатели можно измерять.</li>
+  </ul>
+
+  <div class="example">
+    <strong>Важно:</strong>
+    не существует одного универсального канала для всех компаний.
+    Для интернет-магазина одежды могут быть эффективны социальные сети
+    и контекстная реклама, а для B2B-компании — SEO, экспертный контент
+    и профессиональные площадки.
+  </div>
+
+</section>
+
+
+<!-- SECTION 3 -->
+
+<section class="card">
+
+  <h2>3. Целевая аудитория и путь клиента</h2>
+
+  <p>
+    Целевая аудитория — это группа людей или компаний, которым
+    потенциально нужен продукт. Маркетолог должен понимать,
+    кто эти люди, какие у них потребности и что влияет на их решение.
+  </p>
+
+  <h3>Что нужно знать о целевой аудитории?</h3>
+
+  <ul>
+    <li>Возраст, география и другие характеристики, если они важны для продукта.</li>
+    <li>Потребности, проблемы и желания.</li>
+    <li>Интересы и привычки.</li>
+    <li>Причины покупки и возможные возражения.</li>
+    <li>Критерии выбора продукта.</li>
+  </ul>
+
+  <h3>Путь клиента</h3>
+
+  <p>
+    Пользователь редко покупает продукт сразу после первого знакомства
+    с брендом. Часто он проходит несколько этапов.
+  </p>
+
+  <div class="case-step">
+    <div class="case-number">1</div>
+    <div>
+      <b>Осведомлённость</b>
+      <div class="muted">Человек впервые узнаёт о компании или продукте.</div>
+    </div>
+  </div>
+
+  <div class="case-step">
+    <div class="case-number">2</div>
+    <div>
+      <b>Интерес</b>
+      <div class="muted">Изучает предложение, преимущества и информацию о бренде.</div>
+    </div>
+  </div>
+
+  <div class="case-step">
+    <div class="case-number">3</div>
+    <div>
+      <b>Рассмотрение</b>
+      <div class="muted">Сравнивает варианты, цены, отзывы и условия.</div>
+    </div>
+  </div>
+
+  <div class="case-step">
+    <div class="case-number">4</div>
+    <div>
+      <b>Покупка</b>
+      <div class="muted">Оформляет заказ или совершает другое целевое действие.</div>
+    </div>
+  </div>
+
+  <div class="case-step">
+    <div class="case-number">5</div>
+    <div>
+      <b>Удержание</b>
+      <div class="muted">Возвращается за повторной покупкой и рекомендует компанию.</div>
+    </div>
+  </div>
+
+  <p>
+    На разных этапах человеку нужна разная информация.
+    Например, на этапе знакомства полезен образовательный контент,
+    а перед покупкой — отзывы, сравнения и понятные условия заказа.
+  </p>
+
+</section>
+
+
+<!-- SECTION 4 -->
+
+<section class="card">
+
+  <h2>4. Как разработать стратегию интернет-маркетинга</h2>
+
+  <p>
+    Стратегия — это план достижения маркетинговых целей.
+    Она определяет, кого компания хочет привлечь, что предлагает,
+    какие каналы использует и как измеряет результат.
+  </p>
+
+  <h3>Основные этапы разработки стратегии</h3>
+
+  <ol>
+    <li>
+      <b>Определить цель.</b>
+      Например, увеличить количество заявок на 20% за три месяца.
+    </li>
+    <li>
+      <b>Изучить продукт и рынок.</b>
+      Понять преимущества, конкурентов, спрос и особенности ниши.
+    </li>
+    <li>
+      <b>Определить целевую аудиторию.</b>
+      Сегментировать потенциальных клиентов и изучить их потребности.
+    </li>
+    <li>
+      <b>Выбрать каналы продвижения.</b>
+      Подобрать инструменты с учётом аудитории, бюджета и целей.
+    </li>
+    <li>
+      <b>Подготовить материалы.</b>
+      Создать объявления, тексты, изображения, видео и посадочные страницы.
+    </li>
+    <li>
+      <b>Запустить продвижение.</b>
+      Настроить кампании и проверить корректность аналитики.
+    </li>
+    <li>
+      <b>Оценить результаты.</b>
+      Сравнить фактические показатели с целями и оптимизировать стратегию.
+    </li>
+  </ol>
+
+  <div class="definition">
+    <strong>Запомните:</strong>
+    стратегия начинается не с выбора рекламного кабинета,
+    а с понимания бизнес-задачи и потребностей клиента.
+  </div>
+
+</section>
+
+
+<!-- SECTION 5 -->
+
+<section class="card">
+
+  <h2>5. Основные показатели эффективности</h2>
+
+  <p>
+    KPI — ключевые показатели эффективности. Они помогают понять,
+    насколько успешно работает маркетинговая кампания.
+  </p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Показатель</th>
+          <th>Что означает</th>
+          <th>Формула</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td><b>CTR</b></td>
+          <td>Кликабельность объявления</td>
+          <td>Клики / показы × 100%</td>
+        </tr>
+
+        <tr>
+          <td><b>CPC</b></td>
+          <td>Стоимость одного клика</td>
+          <td>Расходы / клики</td>
+        </tr>
+
+        <tr>
+          <td><b>CPM</b></td>
+          <td>Стоимость 1000 показов</td>
+          <td>Расходы / показы × 1000</td>
+        </tr>
+
+        <tr>
+          <td><b>CPL</b></td>
+          <td>Стоимость одного лида</td>
+          <td>Расходы / количество лидов</td>
+        </tr>
+
+        <tr>
+          <td><b>CPA</b></td>
+          <td>Стоимость целевого действия</td>
+          <td>Расходы / количество действий</td>
+        </tr>
+
+        <tr>
+          <td><b>ROI</b></td>
+          <td>Окупаемость инвестиций</td>
+          <td>(Доход − затраты) / затраты × 100%</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Пример расчёта</h3>
+
+  <p>
+    Компания потратила 10 000 рублей на рекламу.
+    Объявления получили 20 000 показов и 400 кликов.
+    Из этих переходов компания получила 20 заявок.
+  </p>
+
+  <div class="example">
+
+    <p><b>CTR:</b></p>
+    <span class="formula">400 / 20 000 × 100% = 2%</span>
+
+    <p><b>CPC:</b></p>
+    <span class="formula">10 000 / 400 = 25 рублей</span>
+
+    <p><b>CPL:</b></p>
+    <span class="formula">10 000 / 20 = 500 рублей</span>
+
+  </div>
+
+  <p class="muted">
+    Это учебный пример. Хорошие значения показателей зависят
+    от отрасли, продукта, аудитории и бизнес-модели.
+  </p>
+
+</section>
+
+
+<!-- SECTION 6 -->
+
+<section class="card">
+
+  <h2>6. Аналитика и оптимизация</h2>
+
+  <p>
+    Запустить рекламу недостаточно. Маркетолог должен постоянно
+    анализировать данные и находить возможности улучшения.
+  </p>
+
+  <h3>Что нужно проверять?</h3>
+
+  <ul>
+    <li>Сколько пользователей увидели рекламу.</li>
+    <li>Сколько людей перешли по объявлению.</li>
+    <li>Какие страницы сайта посещали пользователи.</li>
+    <li>Сколько человек оставили заявку или купили продукт.</li>
+    <li>Какие источники приводят наиболее ценных клиентов.</li>
+    <li>Соответствуют ли расходы полученному результату.</li>
+  </ul>
+
+  <h3>Инструменты аналитики</h3>
+
+  <div class="grid">
+
+    <div class="tool">
+      <h3>Яндекс Метрика</h3>
+      <p>Анализ посещаемости сайта и поведения пользователей.</p>
+    </div>
+
+    <div class="tool">
+      <h3>Google Analytics</h3>
+      <p>Анализ трафика, источников и взаимодействия пользователей с сайтом.</p>
+    </div>
+
+    <div class="tool">
+      <h3>CRM</h3>
+      <p>Учёт лидов, сделок, клиентов и этапов продаж.</p>
+    </div>
+
+    <div class="tool">
+      <h3>Сквозная аналитика</h3>
+      <p>Связь рекламных затрат с заявками, продажами и выручкой.</p>
+    </div>
+
+  </div>
+
+  <div class="definition">
+    <strong>Главное правило:</strong>
+    оценивайте не только количество кликов и просмотров,
+    но и то, как маркетинг влияет на реальные бизнес-результаты.
+  </div>
+
+</section>
+
+
+<!-- PRACTICE -->
+
+<section class="card">
+
+  <h2>7. Практическое задание</h2>
+
+  <span class="tag">Практика</span>
+
+  <h3>Кейс: продвижение небольшой кофейни</h3>
+
+  <p>
+    Представьте, что вы интернет-маркетолог небольшой кофейни.
+    Кофейня находится в центре города. У неё есть сайт, страница
+    в социальных сетях и ограниченный рекламный бюджет.
+  </p>
+
+  <p>
+    Владелец хочет привлечь новых посетителей и увеличить
+    количество заказов через интернет.
+  </p>
+
+  <h3>Ваша задача</h3>
+
+  <ol>
+    <li>Опишите целевую аудиторию кофейни.</li>
+    <li>Выберите минимум три канала интернет-маркетинга.</li>
+    <li>Предложите по одной идее продвижения для каждого канала.</li>
+    <li>Определите три показателя, по которым будете оценивать результат.</li>
+    <li>Объясните, как вы поймёте, что кампания успешна.</li>
+  </ol>
+
+  <label for="practiceAnswer">
+    <b>Ваш ответ:</b>
+  </label>
+
+  <textarea
+    id="practiceAnswer"
+    placeholder="1. Целевая аудитория...
+
+2. Каналы продвижения...
+
+3. Идеи рекламных кампаний...
+
+4. KPI...
+
+5. Как оценить результат..."></textarea>
+
+  <p class="muted" style="font-size:12px">
+    Ответ можно сохранить в профиле стажёра. Он не заменяет проверочный тест.
+  </p>
+
+  <button class="btn-secondary" onclick="savePractice()">
+    Сохранить практическое задание
+  </button>
+
+  <span id="practiceStatus" class="muted" style="font-size:12px"></span>
+
+</section>
+
+
+<!-- SOURCES -->
+
+<section class="card">
+
+  <h2>8. Дополнительные материалы</h2>
+
+  <p>
+    Для углублённого изучения темы прочитайте следующие материалы:
+  </p>
+
+  <a
+    class="source-link"
+    href="https://practicum.yandex.ru/blog/chto-takoe-internet-marketing/"
+    target="_blank"
+    rel="noopener noreferrer">
+    Яндекс Практикум — Что такое интернет-маркетинг?
+  </a>
+
+  <a
+    class="source-link"
+    href="https://skillbox.ru/media/marketing/chto-takoe-internetmarketing-zachem-on-nuzhen-biznesu-i-skolko-na-nyem-mozhno-zarabotat/"
+    target="_blank"
+    rel="noopener noreferrer">
+    Skillbox — Что такое интернет-маркетинг, зачем он нужен бизнесу и сколько на нём можно заработать?
+  </a>
+
+  <a
+    class="source-link"
+    href="https://online.hse.ru/blog/statyi/perevod-s-professionalnogo/onlajn-marketing-kljuchevye-strategii-i-instrumenty-dlja-uspeshnogo-prodvizhenija"
+    target="_blank"
+    rel="noopener noreferrer">
+    НИУ ВШЭ — Онлайн-маркетинг: ключевые стратегии и инструменты
+  </a>
+
+  <p class="muted" style="font-size:12px">
+    Материалы приведены для самостоятельного чтения.
+    Перед использованием конкретных инструментов проверяйте
+    их актуальные возможности и условия.
+  </p>
+
+</section>
+
+
+<!-- TEST -->
+
+<section class="card" id="testSection">
+
+  <div class="eyebrow">ПРОВЕРКА ЗНАНИЙ</div>
+
+  <h2>9. Тест по теме «Интернет-маркетинг»</h2>
+
+  <p class="muted">
+    Ответьте на 8 вопросов. Для прохождения необходимо набрать
+    минимум 6 правильных ответов.
+  </p>
+
+  <div class="progress">
+    <span id="testProgress"></span>
+  </div>
+
+  <div id="quiz"></div>
+
+  <button class="btn" id="submitTest" onclick="submitTest()">
+    Проверить ответы
+  </button>
+
+  <div id="testResult" class="result"></div>
+
+</section>
+
+
+<footer class="footer">
+  InternLab · Академия маркетинга · Урок 2 из 46
+</footer>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   CONFIGURATION
+===================================== */
+
+const STORAGE_KEY = "internlab_academy_data_v1";
+
+const TERM_INDEX = 1;
+const PREVIOUS_TERM_INDEX = 0;
+
+const PASS_SCORE = 6;
+
+let currentCandidate = null;
+
+
+/* =====================================
+   TEST QUESTIONS
+===================================== */
+
+const questions = [
+
+  {
+    question:"Что такое интернет-маркетинг?",
+    options:[
+      "Только публикация постов в социальных сетях",
+      "Комплекс методов продвижения товаров и услуг через интернет",
+      "Только создание сайтов",
+      "Продажа компьютеров и программ"
+    ],
+    answer:1,
+    explanation:"Интернет-маркетинг объединяет цифровые каналы и инструменты для достижения маркетинговых целей."
+  },
+
+  {
+    question:"Для чего используется SEO?",
+    options:[
+      "Для улучшения позиций сайта в органической поисковой выдаче",
+      "Для отправки email-рассылок",
+      "Для создания логотипов",
+      "Для автоматического управления складом"
+    ],
+    answer:0,
+    explanation:"SEO помогает улучшить видимость сайта в поисковых системах и привлекать органический трафик."
+  },
+
+  {
+    question:"Какой инструмент помогает показывать рекламу выбранным сегментам аудитории?",
+    options:[
+      "Текстовый редактор",
+      "CRM",
+      "Таргетированная реклама",
+      "Хостинг"
+    ],
+    answer:2,
+    explanation:"Таргетированная реклама позволяет выбирать аудиторию по доступным характеристикам, интересам и поведению."
+  },
+
+  {
+    question:"Что означает CTR?",
+    options:[
+      "Стоимость одного заказа",
+      "Отношение кликов к показам объявления",
+      "Количество клиентов компании",
+      "Общий рекламный бюджет"
+    ],
+    answer:1,
+    explanation:"CTR рассчитывается как отношение кликов к показам, умноженное на 100%."
+  },
+
+  {
+    question:"Компания получила много кликов, но почти не получила заявок. Что следует проверить в первую очередь?",
+    options:[
+      "Только цвет логотипа",
+      "Количество сотрудников компании",
+      "Соответствие аудитории, рекламного предложения и посадочной страницы",
+      "Количество публикаций в прошлом году"
+    ],
+    answer:2,
+    explanation:"Нужно проверить соответствие аудитории предложению, удобство страницы и процесс оформления заявки."
+  },
+
+  {
+    question:"Для чего нужна CRM-система?",
+    options:[
+      "Для обработки фотографий",
+      "Для управления клиентами, сделками и продажами",
+      "Для создания рекламных баннеров",
+      "Для ускорения интернета"
+    ],
+    answer:1,
+    explanation:"CRM помогает организовать работу с клиентами и контролировать процесс продаж."
+  },
+
+  {
+    question:"Как рассчитывается CPL?",
+    options:[
+      "Количество показов / количество кликов",
+      "Рекламные расходы / количество полученных лидов",
+      "Доход / количество сотрудников",
+      "Количество кликов / рекламные расходы"
+    ],
+    answer:1,
+    explanation:"CPL показывает, сколько в среднем стоит получение одного лида."
+  },
+
+  {
+    question:"Почему маркетологу важно анализировать результаты рекламной кампании?",
+    options:[
+      "Чтобы просто увеличить число отчётов",
+      "Чтобы не менять рекламу никогда",
+      "Чтобы определить эффективность и улучшить результаты",
+      "Чтобы отказаться от всех рекламных каналов"
+    ],
+    answer:2,
+    explanation:"Аналитика помогает оценивать эффективность кампаний и принимать решения на основе данных."
+  }
+
+];
+
+
+/* =====================================
+   HELPERS
+===================================== */
+
+function getDatabase() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  } catch(error) {
+    return {};
+  }
+}
+
+
+function saveDatabase(data) {
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+
+function getCandidate(data) {
+  const interns = Array.isArray(data.interns)
+    ? data.interns
+    : [];
+
+  return interns.find(
+    x => x.id === data.currentInternId
+  ) || null;
+}
+
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g,c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
+}
+
+
+/* =====================================
+   ACCESS CONTROL
+===================================== */
+
+function checkAccess() {
+
+  const data = getDatabase();
+
+  currentCandidate = getCandidate(data);
+
+  const status = document.getElementById("accessStatus");
+
+  if (!currentCandidate) {
+
+    status.innerHTML = `
+      <b>Нет активного стажёра.</b>
+      <p>
+        Вернитесь в академию и выберите кандидата,
+        чтобы открыть урок.
+      </p>
+    `;
+
+    lockLesson();
+    return false;
+  }
+
+  if (!currentCandidate.testPassed) {
+
+    status.innerHTML = `
+      <b>Доступ закрыт.</b>
+      <p>
+        Сначала необходимо успешно пройти входной тест академии.
+      </p>
+    `;
+
+    lockLesson();
+    return false;
+  }
+
+  const completed = new Set(
+    currentCandidate.trainingPassed || []
+  );
+
+  if (!completed.has(PREVIOUS_TERM_INDEX)) {
+
+    status.innerHTML = `
+      <b>Предыдущий урок ещё не завершён.</b>
+      <p>
+        Сначала пройдите урок «Маркетинг»,
+        затем возвращайтесь к этому материалу.
+      </p>
+
+      <a class="back" href="../Маркетинг/index.html">
+        Перейти к уроку «Маркетинг» →
+      </a>
+    `;
+
+    lockLesson();
+    return false;
+  }
+
+  status.innerHTML = `
+    <b style="color:var(--green)">✓ Доступ открыт</b>
+    <p>
+      Стажёр: <b>${escapeHTML(currentCandidate.name)}</b>
+    </p>
+  `;
+
+  return true;
+}
+
+
+function lockLesson() {
+
+  document.querySelectorAll(
+    ".card:not(#testSection)"
+  ).forEach(card => {
+    card.style.opacity = ".45";
+    card.style.pointerEvents = "none";
+  });
+
+  document.getElementById("testSection").style.opacity = ".45";
+  document.getElementById("testSection").style.pointerEvents = "none";
+}
+
+
+/* =====================================
+   PRACTICE ANSWER
+===================================== */
+
+function savePractice() {
+
+  const data = getDatabase();
+  const candidate = getCandidate(data);
+
+  if (!candidate) {
+    alert("Не найден активный стажёр.");
+    return;
+  }
+
+  const answer = document.getElementById(
+    "practiceAnswer"
+  ).value.trim();
+
+  if (!answer) {
+    alert("Сначала напишите ответ на практическое задание.");
+    return;
+  }
+
+  if (!candidate.lessonResponses) {
+    candidate.lessonResponses = {};
+  }
+
+  candidate.lessonResponses[String(TERM_INDEX)] = {
+    answer:answer,
+    savedAt:new Date().toISOString()
+  };
+
+  saveDatabase(data);
+
+  document.getElementById("practiceStatus").textContent =
+    "✓ Ответ сохранён в профиле стажёра.";
+}
+
+
+function loadPractice() {
+
+  if (!currentCandidate) return;
+
+  const response =
+    currentCandidate.lessonResponses?.[String(TERM_INDEX)];
+
+  if (response && response.answer) {
+
+    document.getElementById("practiceAnswer").value =
+      response.answer;
+
+    document.getElementById("practiceStatus").textContent =
+      "Ранее сохранённый ответ загружен.";
+  }
+}
+
+
+/* =====================================
+   RENDER TEST
+===================================== */
+
+function renderQuiz() {
+
+  const quiz = document.getElementById("quiz");
+
+  quiz.innerHTML = questions.map((q,i) => `
+
+    <div class="question">
+
+      <h3>${i+1}. ${escapeHTML(q.question)}</h3>
+
+      ${q.options.map((option,j) => `
+        <label class="option">
+
+          <input
+            type="radio"
+            name="question${i}"
+            value="${j}"
+            onchange="updateTestProgress()">
+
+          ${escapeHTML(option)}
+
+        </label>
+      `).join("")}
+
+    </div>
+
+  `).join("");
+}
+
+
+function updateTestProgress() {
+
+  const answered = questions.filter((q,i) =>
+    document.querySelector(
+      `input[name="question${i}"]:checked`
+    )
+  ).length;
+
+  document.getElementById("testProgress").style.width =
+    answered / questions.length * 100 + "%";
+}
+
+
+/* =====================================
+   SUBMIT TEST
+===================================== */
+
+function submitTest() {
+
+  if (!checkAccess()) {
+    alert("У вас пока нет доступа к тесту.");
+    return;
+  }
+
+  const answers = [];
+
+  for (let i=0;i<questions.length;i++) {
+
+    const selected = document.querySelector(
+      `input[name="question${i}"]:checked`
+    );
+
+    if (!selected) {
+      alert("Пожалуйста, ответьте на все 8 вопросов.");
+      return;
+    }
+
+    answers.push(Number(selected.value));
+  }
+
+  let score = 0;
+
+  questions.forEach((q,i) => {
+    if (answers[i] === q.answer) {
+      score++;
+    }
+  });
+
+  const passedTest = score >= PASS_SCORE;
+
+  const result = document.getElementById("testResult");
+
+  result.style.display = "block";
+
+  if (passedTest) {
+
+    const data = getDatabase();
+    const candidate = getCandidate(data);
+
+    if (!candidate) {
+      alert("Не удалось найти профиль стажёра.");
+      return;
+    }
+
+    const completed = new Set(
+      (candidate.trainingPassed || []).filter(
+        i => Number.isInteger(i) && i >= 0 && i < 46
+      )
+    );
+
+    completed.add(TERM_INDEX);
+
+    candidate.trainingPassed = [...completed];
+    candidate.progress = completed.size;
+
+    candidate.status = completed.size === 46
+      ? "Завершил"
+      : "Обучается";
+
+    candidate.lessonResults = candidate.lessonResults || {};
+
+    candidate.lessonResults[String(TERM_INDEX)] = {
+      score:score,
+      total:questions.length,
+      percent:Math.round(score / questions.length * 100),
+      passed:true,
+      answers:answers,
+      completedAt:new Date().toISOString()
+    };
+
+    saveDatabase(data);
+
+    result.className = "result success";
+
+    result.innerHTML = `
+      <h3>🎉 Поздравляем! Урок пройден.</h3>
+
+      <p>
+        Ваш результат:
+        <b>${score} из ${questions.length}</b>
+        (${Math.round(score/questions.length*100)}%).
+      </p>
+
+      <p>
+        Урок «Интернет-маркетинг» добавлен в ваш прогресс.
+      </p>
+
+      <p>
+        Следующий урок:
+        <b>Таргетированная реклама</b>.
+      </p>
+
+      <a class="back" href="../../index.html">
+        ← Вернуться в академию
+      </a>
+    `;
+
+    document.getElementById("submitTest").disabled = true;
+
+  } else {
+
+    result.className = "result failure";
+
+    result.innerHTML = `
+      <h3>Пока не получилось пройти тест.</h3>
+
+      <p>
+        Ваш результат:
+        <b>${score} из ${questions.length}</b>.
+      </p>
+
+      <p>
+        Для прохождения необходимо набрать
+        минимум ${PASS_SCORE} правильных ответов.
+      </p>
+
+      <p>
+        Повторите материал и попробуйте ещё раз.
+        Результат урока пока не засчитан.
+      </p>
+
+      <button class="btn" onclick="retryTest()">
+        Попробовать снова
+      </button>
+    `;
+  }
+
+  result.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+}
+
+
+/* =====================================
+   RETRY TEST
+===================================== */
+
+function retryTest() {
+
+  document.getElementById("testResult").style.display =
+    "none";
+
+  document.getElementById("submitTest").disabled =
+    false;
+
+  document.getElementById("testProgress").style.width =
+    "0%";
+
+  renderQuiz();
+
+  document.getElementById("testSection").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+
+/* =====================================
+   INITIALIZE
+===================================== */
+
+if (checkAccess()) {
+
+  loadPractice();
+  renderQuiz();
+
+  const alreadyPassed = new Set(
+    currentCandidate.trainingPassed || []
+  ).has(TERM_INDEX);
+
+  if (alreadyPassed) {
+
+    const result = document.getElementById("testResult");
+
+    result.style.display = "block";
+    result.className = "result success";
+
+    result.innerHTML = `
+      <b>✓ Этот урок уже пройден.</b>
+      <p>Вы можете повторить материал и проверить знания ещё раз.</p>
+    `;
+  }
+
+} else {
+
+  document.getElementById("quiz").innerHTML = `
+    <p>Тест будет доступен после выполнения условий доступа к уроку.</p>
+  `;
+
+}
+
+</script>
+
+</body>
+</html>
